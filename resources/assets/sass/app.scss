@@ -8,16 +8,19 @@
 // Variables
 @import "components/variables";
 
-// Bootstrap
-@import "node_modules/bootstrap/scss/bootstrap";
-
-@import "components/overrides";
+// Bulma
+@import "node_modules/bulma/bulma";
 
 @import
-
-"components/flex",
-"components/grid",
-"components/navbar",
-"components/navs",
-"components/panels",
-"components/typography";
+"components/colors",
+"components/form",
+"components/nav";
+//
+//@import
+//
+//"components/flex",
+//"components/grid",
+//"components/navbar",
+//"components/navs",
+//"components/panels",
+//"components/typography";

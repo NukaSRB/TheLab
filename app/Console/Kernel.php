@@ -16,6 +16,8 @@ class Kernel extends ConsoleKernel
         \JumpGate\Core\Console\Commands\Service\ServiceMakeCommand::class,
         \JumpGate\Core\Console\Commands\Service\ServiceListCommand::class,
         \JumpGate\Core\Console\Commands\Service\ServiceScaffoldCommand::class,
+
+        \App\Console\Commands\PopulateClientsFromToggl::class,
     ];
 
     /**

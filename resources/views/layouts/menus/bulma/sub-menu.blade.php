@@ -2,7 +2,7 @@
   <div class="dropdown-item dropdown-submenu {{ $item->active ? 'active' : '' }}">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ $item->name }}<b class="caret"></b></a>
     <div class="dropdown-menu  {{ isset($rightDropDown) ? 'dropdown-menu-right' : null }}">
-      @each('layouts.menus.twitter.sub-menu', $item->links, 'item')
+      @each('layouts.menus.bulma.sub-menu', $item->links, 'item')
     </div>
   </div>
 @else

@@ -2,9 +2,9 @@
   <li class="nav-item dropdown {{ $item->active ? 'active' : '' }}">
     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ $item->name }}<b class="caret"></b></a>
     <div class="dropdown-menu">
-      @each('layouts.menus.twitter.sub-menu', $item->links, 'item')
+      @each('layouts.menus.bulma.sub-menu', $item->links, 'item')
     </div>
   </li>
 @else
-  @include('layouts.menus.twitter.item')
+  @include('layouts.menus.bulma.item')
 @endif

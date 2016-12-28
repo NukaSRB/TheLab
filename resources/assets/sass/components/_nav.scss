@@ -1,0 +1,8 @@
+.nav.primary {
+  & .nav-item {
+    a {
+      color:       $white;
+      font-weight: bold;
+    }
+  }
+}

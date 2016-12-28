@@ -42,5 +42,12 @@ class MenuComposer
     private function generateRightMenu()
     {
         $rightMenu = \Menu::getMenu('rightMenu');
+
+        $rightMenu->dropDown('admin', 'Admin', function (DropDown $dropDown) {
+            $dropDown->link('admin_client', function (Link $link) {
+                $link->name = 'Clients';
+                $link->url  = route('admin.client.index');
+            });
+        });
     }
 }

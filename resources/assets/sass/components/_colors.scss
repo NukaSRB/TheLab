@@ -1,0 +1,32 @@
+$pallet-colors: (
+                        primary: $primary,
+                        warning: $warning,
+                        info: $info,
+                        danger: $danger,
+                        success: $success,
+                        white: $white,
+                        grey-lighter: $grey-lighter,
+                        grey-light: $grey-light,
+                        grey: $grey,
+                        grey-dark: $grey-dark,
+                        grey-darker: $grey-darker,
+                        black: $black,
+                        blue: $blue,
+                        green: $green,
+                        orange: $orange,
+                        purple: $purple,
+                        red: $red,
+                        turquoise: $turquoise,
+                        yellow: $yellow,
+                        laravel: #f55247,
+                        vue: #41b883,
+                );
+
+@each $label, $color in $pallet-colors {
+  .text-#{$label} {
+    color: $color !important;
+  }
+  .#{$label} {
+    background-color: $color !important;
+  }
+}

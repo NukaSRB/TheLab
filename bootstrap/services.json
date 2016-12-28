@@ -8,5 +8,14 @@
             "\\App\\Http\\Routes\\Home",
             "\\App\\Http\\Routes\\Admin"
         ]
+    },
+    {
+        "name": "Clients",
+        "lower": "clients",
+        "namespace": "App\\Services\\Clients",
+        "path": "app\/Services\/Clients",
+        "routes": [
+            "App\\Services\\Clients\\Http\\Routes\\Client"
+        ]
     }
 ]
