@@ -29,10 +29,33 @@ class Client extends BaseController
         return $this->view();
     }
 
+    public function create()
+    {
+        return $this->view();
+    }
+
+    public function store()
+    {
+        dd(request()->all());
+    }
+
     public function edit($id)
     {
         $this->setViewData('client', $this->clients->find($id));
 
         return $this->view();
+    }
+
+    public function update($id)
+    {
+        dd(request()->all());
+    }
+
+    public function destroy($id)
+    {
+        $this->clients->find($id)->delete();
+
+        return redirect(route('admin.client.index'))
+            ->with('message', 'Client deleted');
     }
 }

@@ -21,6 +21,10 @@
 # To-Do
 * Find a solution for drop downs
     * Bulma has no JS built in so there are no drop downs.
+* Look into how to trigger notifications easily
+    * No more bootbox
+* Get delete-link working with bulma
+    * Should submit a delete link as a delete request.
 * Work out daily dev view
     * Time details
     * Asana Tasks
