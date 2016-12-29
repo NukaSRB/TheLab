@@ -147,7 +147,7 @@
       </p>
       @foreach ($dailySchedule as $schedule)
         <div class="panel-block">
-          <div class="columns" style="color: {{ $schedule->client->color }};">
+          <div class="columns" style="color: #{{ $schedule->client->color }};">
             <div class="column is-half">
               {{ $schedule->client->label }}
               ({{ percent($schedule->time, $schedule->hours) }}%)
@@ -155,7 +155,7 @@
             <div class="column is-one-quarter">{{ $schedule->time }}hrs</div>
             <div class="column is-one-quarter">{{ $schedule->hours }}hrs</div>
           </div>
-          <progress class="progress"
+          <progress class="progress {{ $schedule->client->name }}"
                     value="{{ percent($schedule->time, $schedule->hours) }}"
                     max="100"
           >
@@ -170,7 +170,7 @@
       </p>
       @foreach ($weeklySchedule as $schedule)
         <div class="panel-block">
-          <div class="columns" style="color: {{ $schedule->client->color }};">
+          <div class="columns" style="color: #{{ $schedule->client->color }};">
             <div class="column is-half">
               {{ $schedule->client->label }}
               ({{ percent($schedule->time, $schedule->hours) }}%)
@@ -178,7 +178,7 @@
             <div class="column is-one-quarter">{{ $schedule->time }}hrs</div>
             <div class="column is-one-quarter">{{ $schedule->hours }}hrs</div>
           </div>
-          <progress class="progress"
+          <progress class="progress {{ $schedule->client->name }}"
                     value="{{ percent($schedule->time, $schedule->hours) }}"
                     max="100"
           >
@@ -189,6 +189,15 @@
     </nav>
   </div>
 </div>
+@section('css')
+  <style>
+    @foreach ($weeklySchedule as $schedule)
+    .{{ $schedule->client->name }}::-webkit-progress-value {
+      background-color: #{{ $schedule->client->color }};
+    }
+    @endforeach
+  </style>
+@endsection
 <script>
   @section('onReadyJs')
     upTime('{{ $timer['start'] }}');
