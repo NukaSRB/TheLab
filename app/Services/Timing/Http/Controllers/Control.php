@@ -22,6 +22,19 @@ class Control extends BaseController
         $this->toggl = $toggl;
     }
 
+    public function start()
+    {
+        $timeEntry                 = request()->except('_token');
+        $timeEntry['created_with'] = 'The Lab';
+
+        // todo - convert this to user's API key
+        $this->toggl->setApiKey('7cc984f789e75be10f47762f8144643c')
+                    ->handle('StartTimeEntry', compact('timeEntry'));
+
+        return back()
+            ->with('message', 'Timer started.');
+    }
+
     public function stop($id)
     {
         // todo - convert this to user's API key

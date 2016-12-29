@@ -34,6 +34,10 @@ class Control extends BaseRoutes implements Routes
 
     public function routes(Router $router)
     {
+        $router->post('start')
+              ->name('timer.start')
+              ->uses('Control@start');
+
         $router->get('stop/{id}')
               ->name('timer.stop')
               ->uses('Control@stop');
