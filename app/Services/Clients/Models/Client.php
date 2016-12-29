@@ -4,10 +4,11 @@ namespace App\Services\Clients\Models;
 
 use App\Models\BaseModel;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Client extends BaseModel
 {
-    use Sluggable;
+    use Sluggable, SoftDeletes;
 
     protected $table = 'clients';
 

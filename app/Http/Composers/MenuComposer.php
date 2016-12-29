@@ -34,6 +34,14 @@ class MenuComposer
             $link->name = 'Home';
             $link->url  = route('home');
         });
+
+        if (auth()->check()) {
+            // todo - change this to a settable team
+            $leftMenu->link('dashboard', function (Link $link) {
+                $link->name = 'Dashboard';
+                $link->url  = route('dashboards.production.index');
+            });
+        }
     }
 
     /**

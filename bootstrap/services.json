@@ -13,7 +13,7 @@
         "name": "users",
         "lower": null,
         "namespace": "JumpGate\\Users",
-        "path": "vendor/jumpgate/users/src/JumpGate/Users",
+        "path": "vendor\/jumpgate\/users\/src\/JumpGate\/Users",
         "routes": [
             "\\JumpGate\\Users\\Http\\Routes\\Guest",
             "\\JumpGate\\Users\\Http\\Routes\\Auth"
@@ -34,7 +34,7 @@
         "namespace": "App\\Services\\Dashboards",
         "path": "app\/Services\/Dashboards",
         "routes": [
-            "\\App\\Services\\Dashboards\\Http\\Routes\\Dev"
+            "\\App\\Services\\Dashboards\\Http\\Routes\\Production"
         ]
     },
     {
@@ -45,5 +45,11 @@
         "routes": [
             "\\App\\Services\\Timing\\Http\\Routes\\Control"
         ]
+    },
+    {
+        "name": "Scheduling",
+        "lower": "scheduling",
+        "namespace": "App\\Services\\Scheduling",
+        "path": "app\/Services\/Scheduling"
     }
 ]

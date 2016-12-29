@@ -145,95 +145,47 @@
       <p class="panel-heading">
         Daily Schedule
       </p>
-      <div class="panel-block">
-        <div class="columns">
-          <div class="column is-half">
-            Ideal Life ({{ percent(1.25, 5) }}%)
+      @foreach ($dailySchedule as $schedule)
+        <div class="panel-block">
+          <div class="columns" style="color: {{ $schedule->client->color }};">
+            <div class="column is-half">
+              {{ $schedule->client->label }}
+              ({{ percent($schedule->time, $schedule->hours) }}%)
+            </div>
+            <div class="column is-one-quarter">{{ $schedule->time }}hrs</div>
+            <div class="column is-one-quarter">{{ $schedule->hours }}hrs</div>
           </div>
-          <div class="column is-one-quarter">
-            1.25hrs
-          </div>
-          <div class="column is-one-quarter">
-            5hrs
-          </div>
+          <progress class="progress"
+                    value="{{ percent($schedule->time, $schedule->hours) }}"
+                    max="100"
+          >
+            {{ percent($schedule->time, $schedule->hours) }}%
+          </progress>
         </div>
-        <progress class="progress" value="{{ percent(1.25, 5) }}" max="100">{{ percent(1.25, 5) }}%</progress>
-      </div>
-      <div class="panel-block">
-        <div class="columns text-info">
-          <div class="column is-half">
-            Cast locations ({{ percent(0, 1) }}%)
-          </div>
-          <div class="column is-one-quarter">
-            0hrs
-          </div>
-          <div class="column is-one-quarter">
-            1hrs
-          </div>
-        </div>
-        <progress class="progress is-info" value="{{ percent(0, 1) }}" max="100">{{ percent(0, 1) }}%</progress>
-      </div>
-      <div class="panel-block">
-        <div class="columns text-success">
-          <div class="column is-half">
-            SiteRocket Labs ({{ percent($dailySummary['SiteRocket Labs']['decimal'], 2) }}%)
-          </div>
-          <div class="column is-one-quarter">
-            {{ $dailySummary['SiteRocket Labs']['decimal'] }}hrs
-          </div>
-          <div class="column is-one-quarter">
-            2hrs
-          </div>
-        </div>
-        <progress class="progress is-success" value="{{ percent($dailySummary['SiteRocket Labs']['decimal'], 2) }}" max="100">{{ percent($dailySummary['SiteRocket Labs']['decimal'], 2) }}%</progress>
-      </div>
+      @endforeach
     </nav>
     <nav class="panel">
       <p class="panel-heading">
         Weekly Schedule
       </p>
-      <div class="panel-block">
-        <div class="columns">
-          <div class="column is-half">
-            Ideal Life ({{ percent(1.25, 17) }}%)
+      @foreach ($weeklySchedule as $schedule)
+        <div class="panel-block">
+          <div class="columns" style="color: {{ $schedule->client->color }};">
+            <div class="column is-half">
+              {{ $schedule->client->label }}
+              ({{ percent($schedule->time, $schedule->hours) }}%)
+            </div>
+            <div class="column is-one-quarter">{{ $schedule->time }}hrs</div>
+            <div class="column is-one-quarter">{{ $schedule->hours }}hrs</div>
           </div>
-          <div class="column is-one-quarter">
-            1.25hrs
-          </div>
-          <div class="column is-one-quarter">
-            17hrs
-          </div>
+          <progress class="progress"
+                    value="{{ percent($schedule->time, $schedule->hours) }}"
+                    max="100"
+          >
+            {{ percent($schedule->time, $schedule->hours) }}%
+          </progress>
         </div>
-        <progress class="progress" value="{{ percent(1.25, 17) }}" max="100">{{ percent(1.25, 17) }}%</progress>
-      </div>
-      <div class="panel-block">
-        <div class="columns text-info">
-          <div class="column is-half">
-            Cast locations ({{ percent(0, 3) }}%)
-          </div>
-          <div class="column is-one-quarter">
-            0hrs
-          </div>
-          <div class="column is-one-quarter">
-            3hrs
-          </div>
-        </div>
-        <progress class="progress is-info" value="{{ percent(0, 3) }}" max="100">{{ percent(0, 3) }}%</progress>
-      </div>
-      <div class="panel-block">
-        <div class="columns text-success">
-          <div class="column is-half">
-            SiteRocket Labs ({{ percent($weeklySummary['SiteRocket Labs']['decimal'], 4) }}%)
-          </div>
-          <div class="column is-one-quarter">
-            {{ $weeklySummary['SiteRocket Labs']['decimal'] }}hrs
-          </div>
-          <div class="column is-one-quarter">
-            4hrs
-          </div>
-        </div>
-        <progress class="progress is-success" value="{{ percent($weeklySummary['SiteRocket Labs']['decimal'], 4) }}" max="100">{{ percent($weeklySummary['SiteRocket Labs']['decimal'], 4) }}%</progress>
-      </div>
+      @endforeach
     </nav>
   </div>
 </div>

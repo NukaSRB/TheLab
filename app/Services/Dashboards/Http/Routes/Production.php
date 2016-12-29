@@ -6,7 +6,7 @@ use JumpGate\Core\Contracts\Routes;
 use JumpGate\Core\Providers\Routes as BaseRoutes;
 use Illuminate\Routing\Router;
 
-class Dev extends BaseRoutes implements Routes
+class Production extends BaseRoutes implements Routes
 {
     public function namespacing()
     {
@@ -15,7 +15,7 @@ class Dev extends BaseRoutes implements Routes
 
     public function prefix()
     {
-        return $this->getContext('default') . '/dashboards/dev';
+        return $this->getContext('default') . '/dashboards/production';
     }
 
     public function middleware()
@@ -35,7 +35,7 @@ class Dev extends BaseRoutes implements Routes
     public function routes(Router $router)
     {
         $router->get('/')
-               ->name('dashboards.dev.index')
-               ->uses('Dev');
+               ->name('dashboards.production.index')
+               ->uses('Production');
     }
 }
