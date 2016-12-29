@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8617c0a1f785a230a77893bc3c6bc2d1",
-    "content-hash": "edf1de46492b5683d8108afeb5700224",
+    "hash": "0ac33afa36c62e6d05d2aaa0f0c384f7",
+    "content-hash": "49e8e9eccf3f7a210ee6c2733daf9ddc",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -2404,6 +2404,58 @@
                 "shell"
             ],
             "time": "2016-03-09 05:03:14"
+        },
+        {
+            "name": "pulkitjalan/google-apiclient",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pulkitjalan/google-apiclient.git",
+                "reference": "a24360ae5a262040a73ed2f641259740a9e48184"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pulkitjalan/google-apiclient/zipball/a24360ae5a262040a73ed2f641259740a9e48184",
+                "reference": "a24360ae5a262040a73ed2f641259740a9e48184",
+                "shasum": ""
+            },
+            "require": {
+                "google/apiclient": "^2.0",
+                "illuminate/support": "~5",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PulkitJalan\\Google\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pulkit Jalan"
+                }
+            ],
+            "description": "Google api php client wrapper with Cloud Platform and Laravel 4 & 5 support",
+            "homepage": "https://github.com/pulkitjalan/google-apiclient",
+            "keywords": [
+                "cloud platform",
+                "google",
+                "laravel"
+            ],
+            "time": "2016-11-03 18:59:49"
         },
         {
             "name": "ramsey/uuid",

@@ -26,6 +26,8 @@ class Production extends BaseController
 
     public function __invoke()
     {
+        $events = $this->getUserCalendarEvents();
+
         $timer         = $this->getActiveTimer();
         $dailySummary  = $this->getSummary('day');
         $weeklySummary = $this->getSummary('week');
@@ -45,7 +47,7 @@ class Production extends BaseController
                                            return $this->transformSchedule($scheduled, $weeklySummary, $timer);
                                        });
 
-        $this->setViewData(compact('dailySchedule', 'weeklySchedule', 'timer', 'dailySummary', 'weeklySummary'));
+        $this->setViewData(compact('events', 'dailySchedule', 'weeklySchedule', 'timer', 'dailySummary', 'weeklySummary'));
 
         return $this->view();
     }
@@ -73,8 +75,10 @@ class Production extends BaseController
 
     private function getSummary($duration = 'day')
     {
-        if (cache()->has('summary:' . $duration)) {
-            return cache('summary:' . $duration);
+        $cacheKey = 'summary:' . auth()->id() .':'. $duration;
+
+        if (cache()->has($cacheKey)) {
+            return cache($cacheKey);
         }
 
         switch ($duration) {
@@ -107,7 +111,7 @@ class Production extends BaseController
             ];
         }
 
-        cache()->put('summary:' . $duration, $results, 5);
+        cache()->put($cacheKey, $results, 5);
 
         return $results;
     }
@@ -126,5 +130,37 @@ class Production extends BaseController
         }
 
         return $scheduled;
+    }
+
+    private function getUserCalendarEvents()
+    {
+        $cacheKey = 'upcomingEvents:' . auth()->id();
+
+        if (cache()->has($cacheKey)) {
+            return cache($cacheKey);
+        }
+
+        $userGoogle = auth()->user()->getProvider('google');
+        $token      = [
+            'access_token' => $userGoogle->token,
+            'expires_in'   => $userGoogle->expires_in,
+        ];
+
+        $google = new \Google_Client;
+        $google->setAccessToken($token);
+
+        $service = new \Google_Service_Calendar($google);
+
+        $events = $service->events->listEvents('primary', [
+            'timeMin'      => Carbon::now()->format('c'),
+            'timeMax'      => Carbon::now()->addDays(7)->endOfDay()->format('c'),
+            'showDeleted'  => false,
+            'singleEvents' => true,
+            'orderBy'      => 'startTime',
+        ]);
+
+        cache()->put($cacheKey, $events, 5);
+
+        return $events;
     }
 }

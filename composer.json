@@ -19,7 +19,8 @@
         "torann/laravel-asana": "^0.3.0",
         "asana/asana": "^0.5.0",
         "google/apiclient": "^2.0",
-        "laravel/socialite": "^2.0"
+        "laravel/socialite": "^2.0",
+        "pulkitjalan/google-apiclient": "^3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
