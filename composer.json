@@ -10,6 +10,7 @@
         "jumpgate/database": "*@dev",
         "jumpgate/core": "*@dev",
         "jumpgate/menu": "*@dev",
+        "jumpgate/users": "*@dev",
         "laravelcollective/html": "^5.2",
         "barryvdh/laravel-debugbar": "^2.2",
         "camroncade/timezone": "^0.1.0",
@@ -17,7 +18,8 @@
         "jenssegers/model": "^1.1",
         "torann/laravel-asana": "^0.3.0",
         "asana/asana": "^0.5.0",
-        "google/apiclient": "^2.0"
+        "google/apiclient": "^2.0",
+        "laravel/socialite": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -79,6 +81,10 @@
         {
             "type": "vcs",
             "url": "git@github.com:NukaSRB/Menu.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:NukaSRB/Users.git"
         }
     ]
 }

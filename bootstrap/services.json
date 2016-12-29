@@ -10,6 +10,16 @@
         ]
     },
     {
+        "name": "users",
+        "lower": null,
+        "namespace": "JumpGate\\Users",
+        "path": "vendor/jumpgate/users/src/JumpGate/Users",
+        "routes": [
+            "\\JumpGate\\Users\\Http\\Routes\\Guest",
+            "\\JumpGate\\Users\\Http\\Routes\\Auth"
+        ]
+    },
+    {
         "name": "Clients",
         "lower": "clients",
         "namespace": "App\\Services\\Clients",

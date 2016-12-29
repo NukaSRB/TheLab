@@ -53,5 +53,6 @@ class Kernel extends HttpKernel
         'guest'      => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle'   => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'active'     => \JumpGate\Menu\Middleware\MenuMiddleware::class,
+        'acl'        => \JumpGate\Users\Http\Middleware\CheckPermission::class,
     ];
 }

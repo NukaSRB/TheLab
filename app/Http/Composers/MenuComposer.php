@@ -41,6 +41,12 @@ class MenuComposer
      */
     private function generateRightMenu()
     {
+        $this->generateAdminMenu();
+        $this->generateUserMenu();
+    }
+
+    private function generateAdminMenu()
+    {
         $rightMenu = \Menu::getMenu('rightMenu');
 
         $rightMenu->dropDown('admin', 'Admin', function (DropDown $dropDown) {
@@ -49,5 +55,24 @@ class MenuComposer
                 $link->url  = route('admin.client.index');
             });
         });
+    }
+
+    private function generateUserMenu()
+    {
+        $rightMenu = \Menu::getMenu('rightMenu');
+
+        if (auth()->guest()) {
+            $rightMenu->link('login', function (Link $link) {
+                $link->name = 'Login';
+                $link->url  = route('auth.login');
+            });
+        } else {
+            $rightMenu->dropdown('user', auth()->user()->name, function (DropDown $dropDown) {
+                $dropDown->link('user_logout', function (Link $link) {
+                    $link->name = 'Logout';
+                    $link->url  = route('auth.logout');
+                });
+            });
+        }
     }
 }

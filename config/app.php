@@ -170,6 +170,7 @@ return [
          */
         JumpGate\Core\Providers\ViewServiceProvider::class,
         JumpGate\Menu\MenuServiceProvider::class,
+        JumpGate\Users\Providers\UsersServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -189,6 +190,7 @@ return [
         Camroncade\Timezone\TimezoneServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Torann\LaravelAsana\ServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
     ],
 
     /*
@@ -241,6 +243,7 @@ return [
         'Form'         => Collective\Html\FormFacade::class,
         'Str'          => Illuminate\Support\Str::class,
         'Asana'        => Torann\LaravelAsana\Facade::class,
+        'Socialite'    => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];
