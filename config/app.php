@@ -188,6 +188,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Camroncade\Timezone\TimezoneServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
+        Torann\LaravelAsana\ServiceProvider::class,
     ],
 
     /*
@@ -239,6 +240,7 @@ return [
         'HTML'         => Collective\Html\HtmlFacade::class,
         'Form'         => Collective\Html\FormFacade::class,
         'Str'          => Illuminate\Support\Str::class,
+        'Asana'        => Torann\LaravelAsana\Facade::class,
     ],
 
 ];

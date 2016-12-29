@@ -2,16 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Apis\Toggl\Client;
+use App\Apis\Asana\Client as AsanaClient;
+use App\Apis\Toggl\Client as TogglClient;
 
 class HomeController extends BaseController
 {
-    public function index(Client $client)
+    public function index(TogglClient $toggle, AsanaClient $asana)
     {
         $this->setPageTitle('JumpGate Demo');
 
-        $clients = collect($client->handle('GetClients', ['page' => 2]));
-        dump($clients->pluck('name', 'id'));
+        // $user = $asana->findTeamsByOrganization(8744492949110);
+        // dump(count($user));
+        // foreach ($user as $team) {
+        //     dump($team);
+        // }
+
+        // $clients = collect($toggle->handle('GetClients', ['page' => 2]));
+        // dump($clients->pluck('name', 'id'));
+
+        $time = $toggle->handle('GetCurrentTimeEntry');
+        dump($time);
 
         return $this->view();
     }

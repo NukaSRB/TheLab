@@ -21,6 +21,7 @@ class CreateClientsTable extends Migration
             $table->string('label');
             $table->string('color', 6)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

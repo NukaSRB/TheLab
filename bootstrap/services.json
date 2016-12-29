@@ -17,5 +17,23 @@
         "routes": [
             "App\\Services\\Clients\\Http\\Routes\\Client"
         ]
+    },
+    {
+        "name": "Dashboards",
+        "lower": "dashboards",
+        "namespace": "App\\Services\\Dashboards",
+        "path": "app\/Services\/Dashboards",
+        "routes": [
+            "\\App\\Services\\Dashboards\\Http\\Routes\\Dev"
+        ]
+    },
+    {
+        "name": "Timing",
+        "lower": "timing",
+        "namespace": "App\\Services\\Timing",
+        "path": "app\/Services\/Timing",
+        "routes": [
+            "\\App\\Services\\Timing\\Http\\Routes\\Control"
+        ]
     }
 ]

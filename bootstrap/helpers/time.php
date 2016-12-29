@@ -108,3 +108,27 @@ if (! function_exists('convertFromSeconds')) {
         return substr($s, 0, -1);
     }
 }
+
+function convertMicroSeconds($duration)
+{
+    list($hours, $minutes, $seconds) = convertMicroSecondsArray($duration);
+
+    return ($hours == 0 ? "00" : $hours) . ":" . ($minutes == 0 ? "00" : ($minutes < 10 ? "0" . $minutes : $minutes)) . ":" . ($seconds == 0 ? "00" : ($seconds < 10 ? "0" . $seconds : $seconds));
+}
+
+function convertMicroSecondsArray($duration)
+{
+    $hours = (int)($duration / 60 / 60);
+
+    $minutes = (int)($duration / 60) - $hours * 60;
+
+    $seconds = (int)$duration - $hours * 60 * 60 - $minutes * 60;
+
+    return compact('hours', 'minutes', 'seconds');
+}
+
+function decimalHours(array $times)
+{
+    return round($times['hours'] + ($times['minutes']/60) + ($times['seconds']/3600), 2);
+}
+

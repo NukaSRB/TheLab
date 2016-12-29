@@ -13,6 +13,9 @@ use AJT\Toggl\TogglClient as BaseTogglClient;
  */
 class Client
 {
+
+    protected $apiKey = null;
+
     /**
      * Call the appropriate Toggl API based on the method given.
      *
@@ -27,8 +30,10 @@ class Client
         // Set up the constuctor parameters.
         $config = [
             'debug'   => $debug,
-            'api_key' => config('toggl.key'),
+            'api_key' => $this->apiKey ?? config('toggl.key'),
         ];
+
+        $this->apiKey = null;
 
         // Determine which version to call.
         $version = $this->determineVersion($method);
@@ -53,6 +58,13 @@ class Client
 
         // Call the method on the proper client.
         return call_user_func_array([$client, $method], [$parameters]);
+    }
+
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
+
+        return $this;
     }
 
     /**

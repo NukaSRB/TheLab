@@ -31,57 +31,6 @@
     var mainMessage = {!! (session()->has('message') ? json_encode(session()->get('message')) : 0) !!};
     var mainWarning = {!! (session()->has('warning') ? json_encode(session()->get('warning')) : 0) !!};
 
-    $.notifyDefaults({
-      placement:     {
-        from:  'bottom',
-        align: 'right'
-      },
-      animate:       {
-        enter: 'animated fadeInUp',
-        exit:  'animated fadeOutDown'
-      },
-      allow_dismiss: true
-    });
-
-    if (mainError != 0) {
-      $.notify({
-        message: mainError,
-        icon:    'fa fa-exclamation-triangle'
-      }, {
-        // settings
-        type: 'danger'
-      });
-    }
-
-    if (mainErrors != 0) {
-      $.notify({
-        message: mainErrors,
-        icon:    'fa fa-exclamation-triangle'
-      }, {
-        // settings
-        type: 'danger'
-      });
-    }
-
-    if (mainMessage != 0) {
-      $.notify({
-        message: mainMessage,
-        icon:    'fa fa-info-circle'
-      }, {
-        // settings
-        type: 'info'
-      });
-    }
-
-    if (mainWarning != 0) {
-      $.notify({
-        message: mainWarning,
-        icon:    'fa fa-info'
-      }, {
-        // settings
-        type: 'warning'
-      });
-    }
     // On Ready Js
     @section('onReadyJs')
     @show
