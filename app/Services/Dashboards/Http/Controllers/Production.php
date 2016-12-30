@@ -6,6 +6,8 @@ use App\Apis\Toggl\Client as TogglClient;
 use App\Http\Controllers\BaseController;
 use App\Services\Scheduling\Models\ScheduledHour;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class Production extends BaseController
 {
@@ -45,6 +47,7 @@ class Production extends BaseController
                                        ->where('date', '>=', Carbon::now()->startOfWeek()->startOfDay())
                                        ->where('date', '<=', Carbon::now()->endOfWeek()->endOfDay())
                                        ->get()
+                                       ->groupBy('client_id')
                                        ->transform(function ($scheduled) use ($weeklySummary, $timer) {
                                            return $this->transformSchedule($scheduled, $weeklySummary, $timer);
                                        });
@@ -120,6 +123,13 @@ class Production extends BaseController
 
     protected function transformSchedule($scheduled, $summary, $timer)
     {
+        // If there are multiple entries per client, consolidate into one entry.
+        if ($scheduled instanceof Collection) {
+            $hours            = $scheduled->sum('hours');
+            $scheduled        = $scheduled->first();
+            $scheduled->hours = $hours;
+        }
+
         $scheduled->time = 0;
 
         if (array_key_exists($scheduled->client->label, $summary)) {

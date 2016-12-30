@@ -36,6 +36,7 @@
             <li>C: {{ $timer['client']['name'] }}</li>
             <li>P: {{ $timer['project']['name'] or null }}</li>
             <li>T: {{ $timer['task']['name'] or null }}</li>
+            <li><a href="https://www.toggl.com/app/timer" class="text-blue" target="_blank">toggl.com</a></li>
           </ul>
         </div>
       </div>
