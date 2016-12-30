@@ -22,6 +22,7 @@ class Production extends BaseRoutes implements Routes
     {
         return [
             'web',
+            'auth'
         ];
     }
 

@@ -32,14 +32,16 @@ class Production extends BaseController
         $dailySummary  = $this->getSummary('day');
         $weeklySummary = $this->getSummary('week');
 
-        $dailySchedule = ScheduledHour::where('user_id', auth()->id())
+        $dailySchedule = ScheduledHour::with('client')
+                                      ->where('user_id', auth()->id())
                                       ->where('date', date('Y-m-d'))
                                       ->get()
                                       ->transform(function ($scheduled) use ($dailySummary, $timer) {
                                           return $this->transformSchedule($scheduled, $dailySummary, $timer);
                                       });
 
-        $weeklySchedule = ScheduledHour::where('user_id', auth()->id())
+        $weeklySchedule = ScheduledHour::with('client')
+                                       ->where('user_id', auth()->id())
                                        ->where('date', '>=', Carbon::now()->startOfWeek()->startOfDay())
                                        ->where('date', '<=', Carbon::now()->endOfWeek()->endOfDay())
                                        ->get()
@@ -75,7 +77,7 @@ class Production extends BaseController
 
     private function getSummary($duration = 'day')
     {
-        $cacheKey = 'summary:' . auth()->id() .':'. $duration;
+        $cacheKey = 'summary:' . auth()->id() . ':' . $duration;
 
         if (cache()->has($cacheKey)) {
             return cache($cacheKey);
