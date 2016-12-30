@@ -154,11 +154,14 @@ class Production extends BaseController
 
         $userGoogle = auth()->user()->getProvider('google');
         $token      = [
-            'access_token' => $userGoogle->token,
-            'expires_in'   => $userGoogle->expires_in,
+            'access_token'  => $userGoogle->token,
+            'refresh_token' => $userGoogle->refresh_token,
+            'expires_in'    => $userGoogle->expires_in,
         ];
 
         $google = new \Google_Client;
+        $google->setClientId(env('GOOGLE_CLIENT_ID'));
+        $google->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
         $google->setAccessToken($token);
 
         $service = new \Google_Service_Calendar($google);

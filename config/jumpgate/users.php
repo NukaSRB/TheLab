@@ -40,9 +40,11 @@ return [
         [
             'driver' => 'google',
             'scopes' => [
-                'https://www.googleapis.com/auth/calendar'
+                'https://www.googleapis.com/auth/calendar',
             ],
-            'extras' => [],
+            'extras' => [
+                'access_type' => 'offline',
+            ],
         ],
     ],
 
