@@ -30,7 +30,7 @@ class Client
         // Set up the constuctor parameters.
         $config = [
             'debug'   => $debug,
-            'api_key' => $this->apiKey ?? config('toggl.key'),
+            'api_key' => is_null($this->apiKey) ? config('toggl.key') : $this->apiKey,
         ];
 
         $this->apiKey = null;
