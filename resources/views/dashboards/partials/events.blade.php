@@ -11,7 +11,9 @@
               {{ $event->getSummary() }}
             </div>
             <div class="card-header-title is-pulled-right has-text-right">
-              @if (is_null($event->getRecurringEventId))
+              @if (is_null($event->getStart()->dateTime))
+                All Day
+              @elseif (is_null($event->getRecurringEventId))
                 <small>
                   {{ \Carbon\Carbon::parse($event->start->getDateTime())->format('F jS: g:ia') }}
                   -
