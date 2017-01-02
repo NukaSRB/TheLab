@@ -167,7 +167,7 @@ class Production extends BaseController
         $service = new \Google_Service_Calendar($google);
 
         $events = $service->events->listEvents('primary', [
-            'timeMin'      => Carbon::now()->format('c'),
+            'timeMin'      => Carbon::now()->startOfDay()->format('c'),
             'timeMax'      => Carbon::now()->addDays(7)->endOfDay()->format('c'),
             'showDeleted'  => false,
             'singleEvents' => true,
