@@ -22,6 +22,7 @@ class Client extends BaseRoutes implements Routes
     {
         return [
             'web',
+            'active:admin_client',
         ];
     }
 
@@ -35,29 +36,29 @@ class Client extends BaseRoutes implements Routes
     public function routes(Router $router)
     {
         $router->get('create')
-              ->name('admin.client.create')
-              ->uses('Client@create');
+               ->name('admin.client.create')
+               ->uses('Client@create');
         $router->post('create')
-              ->name('admin.client.create')
-              ->uses('Client@store');
+               ->name('admin.client.create')
+               ->uses('Client@store');
 
         $router->get('{id}/edit')
-              ->name('admin.client.edit')
-              ->uses('Client@edit');
+               ->name('admin.client.edit')
+               ->uses('Client@edit');
         $router->post('{id}/edit')
-              ->name('admin.client.edit')
-              ->uses('Client@update');
+               ->name('admin.client.edit')
+               ->uses('Client@update');
 
         $router->delete('{id}/delete')
-              ->name('admin.client.delete')
-              ->uses('Client@destroy');
+               ->name('admin.client.delete')
+               ->uses('Client@destroy');
 
         $router->get('{id}')
-              ->name('admin.client.show')
-              ->uses('Client@show');
+               ->name('admin.client.show')
+               ->uses('Client@show');
 
         $router->get('/')
-              ->name('admin.client.index')
-              ->uses('Client@index');
+               ->name('admin.client.index')
+               ->uses('Client@index');
     }
 }

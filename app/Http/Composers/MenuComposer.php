@@ -30,11 +30,6 @@ class MenuComposer
     {
         $leftMenu = \Menu::getMenu('leftMenu');
 
-        $leftMenu->link('home', function (Link $link) {
-            $link->name = 'Home';
-            $link->url  = route('home');
-        });
-
         if (auth()->check()) {
             // todo - change this to a settable team
             $leftMenu->link('dashboard', function (Link $link) {
@@ -75,7 +70,7 @@ class MenuComposer
                 $link->url  = route('auth.login');
             });
         } else {
-            $rightMenu->dropdown('user', auth()->user()->name, function (DropDown $dropDown) {
+            $rightMenu->dropdown('user', auth()->user()->first_name, function (DropDown $dropDown) {
                 $dropDown->link('user_logout', function (Link $link) {
                     $link->name = 'Logout';
                     $link->url  = route('auth.logout');

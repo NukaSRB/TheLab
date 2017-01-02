@@ -1194,12 +1194,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/NukaSRB/Users.git",
-                "reference": "4e62a182ca77a315ccdb5c649381dc3320d83a1f"
+                "reference": "886199acd0e6fda8470d0677d0647fcf959bacf3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NukaSRB/Users/zipball/4e62a182ca77a315ccdb5c649381dc3320d83a1f",
-                "reference": "4e62a182ca77a315ccdb5c649381dc3320d83a1f",
+                "url": "https://api.github.com/repos/NukaSRB/Users/zipball/886199acd0e6fda8470d0677d0647fcf959bacf3",
+                "reference": "886199acd0e6fda8470d0677d0647fcf959bacf3",
                 "shasum": ""
             },
             "require": {
@@ -1234,7 +1234,7 @@
                 "source": "https://github.com/NukaSRB/Users/tree/master",
                 "issues": "https://github.com/NukaSRB/Users/issues"
             },
-            "time": "2016-12-29 14:34:46"
+            "time": "2017-01-02 20:26:36"
         },
         {
             "name": "laracasts/presenter",

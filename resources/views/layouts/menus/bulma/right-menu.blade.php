@@ -1,10 +1,10 @@
 @if ($item->isDropDown() && $item->hasLinks())
-  <li class="nav-item dropdown {{ $item->active ? 'active' : '' }}">
+  <div class="nav-item dropdown {{ $item->active ? 'is-active' : '' }}">
     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ $item->name }}<b class="caret"></b></a>
-    <div class="dropdown-menu dropdown-menu-right">
+    <ul class="dropdown-menu is-right-aligned">
       @each('layouts.menus.bulma.sub-menu', $item->links, 'item')
-    </div>
-  </li>
+    </ul>
+  </div>
 @else
   @include('layouts.menus.bulma.item')
 @endif

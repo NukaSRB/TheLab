@@ -1,0 +1,58 @@
+//colors
+$color_pomegranate_approx: #e64a19;
+
+.dropdown {
+  position: relative;
+
+  &:hover {
+    .dropdown-menu {
+      display: block;
+    }
+  }
+
+  .dropdown-menu {
+    position:         absolute;
+    display:          none;
+    top:              100%;
+    left:             0;
+    margin:           0;
+    list-style:       none;
+    width:            100%;
+    min-width:        200px;
+    background-color: $white;
+    text-align:       left;
+    brder:            1px solid $grey-light;
+
+    &.is-right-aligned {
+      left:  auto;
+      right: 0;
+    }
+
+    a {
+      color:   $text !important;
+      display: block;
+      padding: 5px 10px;
+
+      &:hover {
+        //background-color: $primary;
+        //color:            $white !important;
+        border-left:  3px solid #41b883;
+        padding-left: 7px;
+      }
+
+      &.is-active {
+        background-color: $primary;
+        color:            $white !important;
+      }
+    }
+
+    li {
+
+      ul {
+        border-left:  1px solid $border;
+        margin:       10px;
+        padding-left: 10px;
+      }
+    }
+  }
+}

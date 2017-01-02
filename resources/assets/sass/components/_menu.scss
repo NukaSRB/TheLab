@@ -1,0 +1,7 @@
+nav.nav {
+  .nav-item {
+    &.is-active {
+      background-color: lighten($primary, 10%);
+    }
+  }
+}

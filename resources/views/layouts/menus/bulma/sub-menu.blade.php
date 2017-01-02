@@ -1,14 +1,16 @@
 @if ($item->isDropDown() && $item->hasLinks())
-  <div class="dropdown-item dropdown-submenu {{ $item->active ? 'active' : '' }}">
+  <div class="nav-item dropdown {{ $item->active ? 'is-active' : '' }}">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ $item->name }}<b class="caret"></b></a>
-    <div class="dropdown-menu  {{ isset($rightDropDown) ? 'dropdown-menu-right' : null }}">
+    <ul class="dropdown-menu">
       @each('layouts.menus.bulma.sub-menu', $item->links, 'item')
-    </div>
+    </ul>
   </div>
 @else
+  <li>
     @if ($item->getOption('text') == true)
       <p class="navbar-text">{!! $item->name !!}</p>
     @else
-      {!! HTML::link($item->url, $item->name, $item->options + ['class' => $item->active ? 'dropdown-item active' : 'dropdown-item']) !!}
+      {!! HTML::link($item->url, $item->name, $item->options + ['class' => $item->active ? 'nav-item is-active' : 'nav-item']) !!}
     @endif
+  </li>
 @endif
