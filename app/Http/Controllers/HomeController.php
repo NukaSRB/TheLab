@@ -20,7 +20,9 @@ class HomeController extends BaseController
         // $clients = collect($toggle->handle('GetClients', ['page' => 2]));
         // dump($clients->pluck('name', 'id'));
 
-        $time = $toggle->handle('GetCurrentTimeEntry');
+        $time = $toggle
+            ->setApiKey(env('A_TOGGL_KEY'))
+            ->handle('GetCurrentTimeEntry');
         dump($time);
 
         return $this->view();

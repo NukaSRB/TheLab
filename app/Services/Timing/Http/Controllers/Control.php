@@ -28,7 +28,7 @@ class Control extends BaseController
         $timeEntry['created_with'] = 'The Lab';
 
         // todo - convert this to user's API key
-        $this->toggl->setApiKey('7cc984f789e75be10f47762f8144643c')
+        $this->toggl->setApiKey(env('A_TOGGL_KEY'))
                     ->handle('StartTimeEntry', compact('timeEntry'));
 
         return back()
@@ -38,7 +38,7 @@ class Control extends BaseController
     public function stop($id)
     {
         // todo - convert this to user's API key
-        $this->toggl->setApiKey('7cc984f789e75be10f47762f8144643c')
+        $this->toggl->setApiKey(env('A_TOGGL_KEY'))
                     ->handle('StopTimeEntry', ['id' => (int)$id]);
 
         return back()

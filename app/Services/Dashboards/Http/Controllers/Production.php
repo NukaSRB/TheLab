@@ -63,7 +63,7 @@ class Production extends BaseController
     private function getActiveTimer()
     {
         // todo - convert this to user's API key
-        $timer = $this->toggl->setApiKey('7cc984f789e75be10f47762f8144643c')->handle('GetCurrentTimeEntry');
+        $timer = $this->toggl->setApiKey(env('A_TOGGL_KEY'))->handle('GetCurrentTimeEntry');
 
         if (array_key_exists('data', $timer)) {
             $timer = null;
