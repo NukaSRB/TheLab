@@ -168,11 +168,13 @@ class Production extends BaseController
 
         $events = $service->events->listEvents('primary', [
             'timeMin'      => Carbon::now()->startOfDay()->format('c'),
-            'timeMax'      => Carbon::now()->addDays(7)->endOfDay()->format('c'),
+            'timeMax'      => Carbon::now()->endOfDay()->format('c'),
             'showDeleted'  => false,
             'singleEvents' => true,
             'orderBy'      => 'startTime',
         ]);
+
+        $events = collect($events->getItems());
 
         cache()->put($cacheKey, $events, 5);
 
