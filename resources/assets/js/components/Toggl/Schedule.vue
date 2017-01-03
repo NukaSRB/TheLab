@@ -20,17 +20,17 @@
       <div class="columns" :style="{ color: '#' + schedule.client.color }">
         <div class="column is-half">
           {{ schedule.client.label }}
-          ({{ schedule.percent }}%)
+          ({{ schedule.percentage }}%)
         </div>
         <div class="column is-one-quarter">{{ schedule.time }}hrs</div>
         <div class="column is-one-quarter">{{ schedule.hours }}hrs</div>
       </div>
       <progress class="progress"
                 :class="schedule.client.name"
-                :value="schedule.percent"
+                :value="schedule.percentage"
                 max="100"
       >
-        {{ schedule.percent }}%
+        {{ schedule.percentage }}%
       </progress>
     </div>
   </nav>

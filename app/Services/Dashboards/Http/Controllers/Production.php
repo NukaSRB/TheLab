@@ -5,6 +5,7 @@ namespace App\Services\Dashboards\Http\Controllers;
 use App\Apis\Toggl\Client as TogglClient;
 use App\Http\Controllers\BaseController;
 use App\Services\Dashboards\Transformers\Event;
+use App\Services\Dashboards\Transformers\Schedule;
 use App\Services\Dashboards\Transformers\Timer;
 use App\Services\Scheduling\Models\ScheduledHour;
 use Carbon\Carbon;
@@ -142,7 +143,7 @@ class Production extends BaseController
             $scheduled->time = $scheduled->time + (decimalHours(convertMicroSecondsArray($duration)));
         }
 
-        return $scheduled;
+        return Schedule::transform($scheduled);
     }
 
     private function getUserCalendarEvents()

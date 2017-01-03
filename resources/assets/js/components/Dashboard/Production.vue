@@ -28,11 +28,12 @@
         weeklySchedule: app.weeklySchedule,
       }
     },
+
     components: {
       'active-timer':    TogglTimer,
       'scheduled-hours': TogglSchedule,
       'calendar-events': GoogleEvent,
-      'daily-tasks': AsanaTask,
+      'daily-tasks':     AsanaTask,
     }
   }
 </script>

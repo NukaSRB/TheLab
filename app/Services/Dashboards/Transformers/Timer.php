@@ -4,7 +4,7 @@ namespace App\Services\Dashboards\Transformers;
 
 use App\Apis\Toggl\Client;
 
-class Timer
+class Timer extends Transformer
 {
     protected $togglClient;
 
@@ -13,24 +13,24 @@ class Timer
         $this->togglClient = app(Client::class);
     }
 
-    public static function transform($timer = null)
+    public static function transform($resource)
     {
-        list($client, $project, $task) = self::getDetails($timer);
+        list($client, $project, $task) = self::getDetails($resource);
 
-        return array_merge($timer, [
+        return array_merge($resource, [
             'project' => $project,
             'client'  => $client,
             'task'    => $task,
         ]);
     }
 
-    private static function getDetails($timer)
+    private static function getDetails($resource)
     {
         $togglClient = app(Client::class);
 
-        $project = $togglClient->handle('GetProject', ['id' => $timer['pid']]);
+        $project = $togglClient->handle('GetProject', ['id' => $resource['pid']]);
         $client  = $togglClient->handle('GetClient', ['id' => $project['cid']]);
-        $task    = $togglClient->handle('GetTask', ['id' => $timer['tid']]);
+        $task    = $togglClient->handle('GetTask', ['id' => $resource['tid']]);
 
         return [
             $client,
