@@ -25,7 +25,8 @@
         "namespace": "App\\Services\\Clients",
         "path": "app\/Services\/Clients",
         "routes": [
-            "App\\Services\\Clients\\Http\\Routes\\Client"
+            "App\\Services\\Clients\\Http\\Routes\\Client",
+            "App\\Services\\Clients\\Http\\Routes\\Project"
         ]
     },
     {
