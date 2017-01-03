@@ -53,12 +53,9 @@ class Clients extends Command
     public function handle()
     {
         collect($this->client->handle('GetClients'))->each(function ($client) {
-            $name = array_get($client, 'name');
-            $id   = array_get($client, 'id');
-
             $this->clients->firstOrCreate([
-                'label'    => $name,
-                'toggl_id' => $id,
+                'label'    => $client['name'],
+                'toggl_id' => $client['id'],
             ]);
         });
     }
