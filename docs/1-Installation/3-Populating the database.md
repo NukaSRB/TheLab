@@ -11,6 +11,6 @@ run the toggl populate commands.
 ```shell
 php artisan toggl:populate:users        // Adds all users.  Assigns employee and admin roles.
 php artisan toggl:populate:clients      // Adds all existing clients. 
+php artisan toggl:populate:projects     // Adds all existing projects. 
+php artisan toggl:populate:tasks        // Adds all existing tasks. 
 ```
-
-This will fill the database with all the clients from toggl and add their toggl_id.
