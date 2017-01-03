@@ -5,6 +5,7 @@
     <tr>
       <th>Name</th>
       <th style="width: 200px;">Client</th>
+      <th style="width: 100px;">Tasks</th>
       <th style="width: 100px;">Toggl</th>
       <th style="width: 40px;">Color</th>
       <th style="width: 100px;">
@@ -22,6 +23,7 @@
         <tr>
           <td>{{ $project->label }}</td>
           <td>{{ $project->client->label }}</td>
+          <td>{{ $project->tasks()->count() }}</td>
           <td>
             <a href="https://www.toggl.com/app/workspaces/{{ env('TOGGL_WORKSPACE_ID') }}/projects/{{ $project->toggl_id }}"
                target="_blank"
