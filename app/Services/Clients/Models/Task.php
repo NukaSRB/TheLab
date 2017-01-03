@@ -6,23 +6,18 @@ use App\Models\BaseModel;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Project extends BaseModel
+class Task extends BaseModel
 {
     use Sluggable, SoftDeletes;
 
-    protected $table = 'client_projects';
+    protected $table = 'client_tasks';
 
     protected $fillable = [
         'toggl_id',
-        'client_id',
+        'project_id',
         'label',
-        'color',
-        'rate',
-        'estimated_hours',
-        'billable_flag',
+        'estimated_seconds',
         'active_flag',
-        'private_flag',
-        'created_at',
     ];
 
     /**
@@ -39,13 +34,8 @@ class Project extends BaseModel
         ];
     }
 
-    public function client()
+    public function project()
     {
-        return $this->belongsTo(Client::class, 'client_id');
-    }
-
-    public function tasks()
-    {
-        return $this->hasMany(Task::class, 'project_id');
+        return $this->belongsTo(Project::class, 'project_id');
     }
 }

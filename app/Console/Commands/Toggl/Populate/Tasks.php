@@ -3,9 +3,9 @@
 namespace App\Console\Commands\Toggl\Populate;
 
 use App\Apis\Toggl\Client;
-use App\Services\Clients\Models\Client as ClientModel;
+use App\Services\Clients\Models\Project;
+use App\Services\Clients\Models\Task;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 
 class Tasks extends Command
 {
@@ -14,14 +14,14 @@ class Tasks extends Command
      *
      * @var string
      */
-    protected $signature = 'toggl:populate:clients';
+    protected $signature = 'toggl:populate:tasks';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Take all clients from toggl and store locally.  (This will not overwrite existing clients)';
+    protected $description = 'Take all tasks from toggl and store locally.  (This will not overwrite existing tasks)';
 
     /**
      * @var \App\Apis\Toggl\Client
@@ -29,20 +29,27 @@ class Tasks extends Command
     private $client;
 
     /**
-     * @var \App\Services\Clients\Models\Client
+     * @var \App\Services\Clients\Models\Project
      */
-    private $clients;
+    private $projects;
 
     /**
-     * @param \App\Apis\Toggl\Client              $client
-     * @param \App\Services\Clients\Models\Client $clients
+     * @var \App\Services\Clients\Models\Task
      */
-    public function __construct(Client $client, ClientModel $clients)
+    private $tasks;
+
+    /**
+     * @param \App\Apis\Toggl\Client               $client
+     * @param \App\Services\Clients\Models\Project $projects
+     * @param \App\Services\Clients\Models\Task    $tasks
+     */
+    public function __construct(Client $client, Project $projects, Task $tasks)
     {
         parent::__construct();
 
-        $this->client  = $client;
-        $this->clients = $clients;
+        $this->client   = $client;
+        $this->projects = $projects;
+        $this->tasks    = $tasks;
     }
 
     /**
@@ -52,13 +59,19 @@ class Tasks extends Command
      */
     public function handle()
     {
-        collect($this->client->handle('GetClients'))->each(function ($client) {
-            $name = array_get($client, 'name');
-            $id   = array_get($client, 'id');
+        collect($this->client->handle('GetWorkspaceTasks', ['id' => (int)env('TOGGL_WORKSPACE_ID')]))->each(function ($task) {
+            $project = $this->projects->where('toggl_id', $task['pid'])->first();
 
-            $this->clients->firstOrCreate([
-                'label'    => $name,
-                'toggl_id' => $id,
+            if (is_null($project)) {
+                return true;
+            }
+
+            $this->tasks->firstOrCreate([
+                'toggl_id'          => $task['id'],
+                'project_id'        => $project->id,
+                'label'             => $task['name'],
+                'estimated_seconds' => isset($task['estimated_seconds']) ? $task['estimated_seconds'] : null,
+                'active_flag'       => $task['active'],
             ]);
         });
     }

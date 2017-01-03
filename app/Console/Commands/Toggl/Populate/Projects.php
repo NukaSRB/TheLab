@@ -5,8 +5,8 @@ namespace App\Console\Commands\Toggl\Populate;
 use App\Apis\Toggl\Client;
 use App\Services\Clients\Models\Client as ClientModel;
 use App\Services\Clients\Models\Project;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 
 class Projects extends Command
 {
@@ -73,6 +73,7 @@ class Projects extends Command
                 'billable_flag'   => $project['billable'],
                 'active_flag'     => $project['active'],
                 'private_flag'    => $project['is_private'],
+                'created_at'      => Carbon::parse($project['created_at'])->format('Y-m-d H:i:s'),
             ]);
         });
     }

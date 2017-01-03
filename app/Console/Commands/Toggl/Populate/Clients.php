@@ -5,7 +5,6 @@ namespace App\Console\Commands\Toggl\Populate;
 use App\Apis\Toggl\Client;
 use App\Services\Clients\Models\Client as ClientModel;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 
 class Clients extends Command
 {
