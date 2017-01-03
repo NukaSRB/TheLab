@@ -15,12 +15,12 @@ require('./delete-link')
  * the application, or feel free to tweak this setup for your needs.
  */
 
-import Example from './components/Example.vue'
+import ProductionDashboard from './components/Dashboard/Production.vue'
 
 var app = new Vue({
     el: '#app',
 
     components: {
-        'example': Example,
+        'production-dashboard': ProductionDashboard,
     }
 });

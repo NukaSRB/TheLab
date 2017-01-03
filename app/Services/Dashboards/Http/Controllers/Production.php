@@ -4,6 +4,8 @@ namespace App\Services\Dashboards\Http\Controllers;
 
 use App\Apis\Toggl\Client as TogglClient;
 use App\Http\Controllers\BaseController;
+use App\Services\Dashboards\Transformers\Event;
+use App\Services\Dashboards\Transformers\Timer;
 use App\Services\Scheduling\Models\ScheduledHour;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -28,7 +30,7 @@ class Production extends BaseController
 
     public function __invoke()
     {
-        $events = $this->getUserCalendarEvents();
+        $events = $this->getUserCalendarEvents()->chunk(4);
 
         $timer         = $this->getActiveTimer();
         $dailySummary  = $this->getSummary('day');
@@ -53,6 +55,7 @@ class Production extends BaseController
                                        });
 
         $this->setViewData(compact('events', 'dailySchedule', 'weeklySchedule', 'timer', 'dailySummary', 'weeklySummary'));
+        $this->setJavascriptData(compact('events', 'dailySchedule', 'weeklySchedule', 'timer', 'dailySummary', 'weeklySummary'));
 
         return $this->view();
     }
@@ -70,9 +73,7 @@ class Production extends BaseController
         }
 
         if (! is_null($timer)) {
-            $timer['project'] = $this->toggl->handle('GetProject', ['id' => $timer['pid']]);
-            $timer['client']  = $this->toggl->handle('GetClient', ['id' => $timer['project']['cid']]);
-            $timer['task']    = $this->toggl->handle('GetTask', ['id' => $timer['tid']]);
+            $timer = Timer::transform($timer);
         }
 
         return $timer;
@@ -174,7 +175,7 @@ class Production extends BaseController
             'orderBy'      => 'startTime',
         ]);
 
-        $events = collect($events->getItems());
+        $events = Event::transformAll($events->getItems());
 
         cache()->put($cacheKey, $events, 5);
 
