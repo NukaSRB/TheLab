@@ -20,6 +20,8 @@ class Project extends BaseController
     public function __construct(ProjectModel $projects)
     {
         $this->projects = $projects;
+
+        $this->addBreadcrumb('Projects', route('admin.project.index'));
     }
 
     public function index()
@@ -31,7 +33,10 @@ class Project extends BaseController
 
     public function show($id)
     {
-        $this->setViewData('project', $this->projects->with('client')->find($id));
+        $project = $this->projects->with('client')->find($id);
+
+        $this->setViewData('project', $project);
+        $this->addBreadcrumb('Project: ' . $project->label, null);
 
         return $this->view();
     }

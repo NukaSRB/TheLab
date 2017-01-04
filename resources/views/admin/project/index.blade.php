@@ -4,6 +4,9 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th style="width: 50px;">Billable</th>
+      <th style="width: 50px;">Active</th>
+      <th style="width: 50px;">Private</th>
       <th style="width: 200px;">Client</th>
       <th style="width: 100px;">Tasks</th>
       <th style="width: 100px;">Toggl</th>
@@ -22,6 +25,9 @@
       @foreach ($projects as $project)
         <tr>
           <td>{{ $project->label }}</td>
+          <td>{!! displayIcon($project->billable_flag) !!}</td>
+          <td>{!! displayIcon($project->active_flag) !!}</td>
+          <td>{!! displayIcon($project->private_flag) !!}</td>
           <td>{{ $project->client->label }}</td>
           <td>{{ $project->tasks()->count() }}</td>
           <td>

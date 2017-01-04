@@ -64,7 +64,9 @@
     },
 
     mounted() {
-      this.upTime(this.timer.start)
+      if (this.timer != null) {
+        this.upTime(this.timer.start)
+      }
     },
 
     methods: {

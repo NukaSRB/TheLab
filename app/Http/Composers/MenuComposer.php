@@ -61,6 +61,10 @@ class MenuComposer
                 $link->name = 'Projects';
                 $link->url  = route('admin.project.index');
             });
+            $dropDown->link('admin_task', function (Link $link) {
+                $link->name = 'Tasks';
+                $link->url  = route('admin.task.index');
+            });
         });
     }
 

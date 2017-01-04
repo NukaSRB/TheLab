@@ -13,4 +13,3 @@
     @endif
   </div>
 </nav>
-<br style="clear: both;" />

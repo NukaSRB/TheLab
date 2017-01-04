@@ -7,9 +7,8 @@
   <body>
     <div id="app">
       <div class="container-fluid" id="container">
-        <div class="row">
-          @include('layouts.partials.menu')
-        </div>
+        @include('layouts.partials.menu')
+        @include('layouts.partials.breadcrumbs')
 
         <div id="content">
           @if (isset($content))

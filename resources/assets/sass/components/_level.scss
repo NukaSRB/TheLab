@@ -1,0 +1,13 @@
+.level {
+  &.breadcrumbs {
+    height: 25px;
+    font-size: .9rem;
+
+    .level-item:after {
+      content: " / "
+    }
+    .level-item:last-of-type:after {
+      content: ""
+    }
+  }
+}

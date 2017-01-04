@@ -20,11 +20,23 @@ class Client extends BaseController
     public function __construct(ClientModel $clients)
     {
         $this->clients = $clients;
+
+        $this->addBreadcrumb('Clients', route('admin.client.index'));
     }
 
     public function index()
     {
         $this->setViewData('clients', $this->clients->orderByNameAsc()->paginate(15));
+
+        return $this->view();
+    }
+
+    public function show($id)
+    {
+        $client = $this->clients->with('projects')->find($id);
+
+        $this->setViewData('client', $client);
+        $this->addBreadcrumb('Client: ' . $client->label, null);
 
         return $this->view();
     }
