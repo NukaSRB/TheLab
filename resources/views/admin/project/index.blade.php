@@ -12,9 +12,9 @@
       <th style="width: 100px;">Toggl</th>
       <th style="width: 40px;">Color</th>
       <th style="width: 100px;">
-        <a href="{{ route('admin.project.create') }}" class="button is-primary is-icon-only is-small is-pulled-right">
+        <a href="{{ route('admin.project.create') }}" class="button is-primary is-small is-pulled-right">
           <span class="icon is-small">
-            <i class="fa fa-fw fa-plus"></i>
+            <i class="fa fa-plus"></i>
           </span>
         </a>
       </th>
@@ -46,19 +46,19 @@
           </td>
           <td>
             <p class="control has-addons is-pulled-right">
-              <a href="{{ route('admin.project.show', $project->id) }}" class="button is-small is-icon-only is-primary is-outlined">
+              <a href="{{ route('admin.project.show', $project->id) }}" class="button is-small is-primary is-outlined">
                 <span class="icon is-small">
-                  <i class="fa fa-fw fa-eye"></i>
+                  <i class="fa fa-eye"></i>
                 </span>
               </a>
-              <a href="{{ route('admin.project.edit', $project->id) }}" class="button is-small is-icon-only is-primary is-outlined">
+              <a href="{{ route('admin.project.edit', $project->id) }}" class="button is-small is-primary is-outlined">
                 <span class="icon is-small">
-                  <i class="fa fa-fw fa-edit"></i>
+                  <i class="fa fa-edit"></i>
                 </span>
               </a>
-              <a href="{{ route('admin.project.delete', $project->id) }}" class="button is-small is-icon-only is-danger is-outlined">
+              <a href="{{ route('admin.project.delete', $project->id) }}" class="button is-small is-danger is-outlined">
                 <span class="icon is-small">
-                  <i class="fa fa-fw fa-trash"></i>
+                  <i class="fa fa-trash"></i>
                 </span>
               </a>
             </p>
