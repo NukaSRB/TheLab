@@ -25,13 +25,17 @@
         <div class="column is-one-quarter">{{ schedule.time }}hrs</div>
         <div class="column is-one-quarter">{{ schedule.hours }}hrs</div>
       </div>
-      <progress class="progress"
-                :class="schedule.client.name"
-                :value="schedule.percentage"
-                max="100"
-      >
-        {{ schedule.percentage }}%
-      </progress>
+      <div class="columns">
+        <div class="column is-whole">
+          <progress class="progress"
+                    :class="schedule.client.name"
+                    :value="schedule.percentage"
+                    max="100"
+          >
+            {{ schedule.percentage }}%
+          </progress>
+        </div>
+      </div>
     </div>
   </nav>
 </template>

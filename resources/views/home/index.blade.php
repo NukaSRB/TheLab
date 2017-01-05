@@ -1,5 +1,5 @@
 <div class="columns">
-  <div class="column is-one-quarter is-offset-one-quarter">
+  <div class="column is-one-quarter is-offset-one-quarter content">
     <h2>Frameworks</h2>
   </div>
 </div>
@@ -102,6 +102,37 @@
         <a class="card-footer-item" href="https://github.com/nukasrb">
           <i class="fa fa-fw fa-github"></i>
           GitHub
+        </a>
+      </footer>
+    </div>
+  </div>
+</div>
+<div class="columns">
+  <div class="column is-one-quarter is-offset-one-quarter content">
+    <h2>Plugins</h2>
+  </div>
+</div>
+<div class="columns">
+  <div class="column is-one-quarter is-offset-one-quarter">
+    <div class="card is-fullwidth">
+      <header class="card-header">
+        <p class="card-header-title text-primary">
+          JS Color
+        </p>
+        <a class="card-header-icon">
+          <i class="fa fa-fw fa-code"></i>
+        </a>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          jscolor is a web color picker component that aims to be super easy both for developers to install and end users
+          to use.
+        </div>
+      </div>
+      <footer class="card-footer">
+        <a class="card-footer-item" href="http://jscolor.com/">
+          <i class="fa fa-fw fa-book"></i>
+          Documentation
         </a>
       </footer>
     </div>
