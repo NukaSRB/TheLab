@@ -21,7 +21,7 @@ class Client extends BaseController
     {
         $this->clients = $clients;
 
-        $this->addBreadcrumb('Clients', route('admin.client.index'));
+        $this->setViewLayout('layouts.admin');
     }
 
     public function index()
@@ -36,7 +36,6 @@ class Client extends BaseController
         $client = $this->clients->with('projects')->find($id);
 
         $this->setViewData('client', $client);
-        $this->addBreadcrumb('Client: ' . $client->label, null);
 
         return $this->view();
     }

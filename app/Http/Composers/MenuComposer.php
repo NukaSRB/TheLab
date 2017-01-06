@@ -66,6 +66,21 @@ class MenuComposer
                 $link->url  = route('admin.task.index');
             });
         });
+
+        $adminMenu = \Menu::getMenu('adminMenu');
+
+        $adminMenu->link('admin_client', function (Link $link) {
+            $link->name = 'Clients';
+            $link->url  = route('admin.client.index');
+        });
+        $adminMenu->link('admin_project', function (Link $link) {
+            $link->name = 'Projects';
+            $link->url  = route('admin.project.index');
+        });
+        $adminMenu->link('admin_task', function (Link $link) {
+            $link->name = 'Tasks';
+            $link->url  = route('admin.task.index');
+        });
     }
 
     private function generateUserMenu()

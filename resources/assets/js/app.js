@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * include Vue and Vue Resource. This gives a great starting point for
@@ -18,9 +17,9 @@ require('./delete-link')
 import ProductionDashboard from './components/Dashboard/Production.vue'
 
 var app = new Vue({
-    el: '#app',
+  el: '#app',
 
-    components: {
-        'production-dashboard': ProductionDashboard,
-    }
+  components: {
+    'production-dashboard': ProductionDashboard,
+  }
 });

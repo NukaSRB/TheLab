@@ -16,17 +16,17 @@
         </a>
       </div>
     </div>
-    <div class="panel-block" v-for="schedule in schedules">
+    <div class="panel-block is-block" v-for="schedule in schedules">
       <div class="columns" :style="{ color: '#' + schedule.client.color }">
-        <div class="column is-half">
+        <div class="column is-6">
           {{ schedule.client.label }}
           ({{ schedule.percentage }}%)
         </div>
-        <div class="column is-one-quarter">{{ schedule.time }}hrs</div>
-        <div class="column is-one-quarter">{{ schedule.hours }}hrs</div>
+        <div class="column is-3">{{ schedule.time }}hrs</div>
+        <div class="column is-3">{{ schedule.hours }}hrs</div>
       </div>
       <div class="columns">
-        <div class="column is-whole">
+        <div class="column">
           <progress class="progress"
                     :class="schedule.client.name"
                     :value="schedule.percentage"
@@ -44,6 +44,9 @@
 </style>
 <script>
   export default {
-    props: ['type', 'schedules'],
+    props: [
+      'type',
+      'schedules'
+    ],
   }
 </script>

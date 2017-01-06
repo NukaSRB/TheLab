@@ -18,11 +18,11 @@
         <div class="content">A modern CSS framework based on Flexbox</div>
       </div>
       <footer class="card-footer">
-        <a class="card-footer-item" href="http://bulma.io/documentation/overview/start/">
+        <a class="card-footer-item" href="http://bulma.io/documentation/overview/start/" target="_blank">
           <i class="fa fa-fw fa-book"></i>
           Documentation
         </a>
-        <a class="card-footer-item" href="https://github.com/jgthms/bulma">
+        <a class="card-footer-item" href="https://github.com/jgthms/bulma" target="_blank">
           <i class="fa fa-fw fa-github"></i>
           GitHub
         </a>
@@ -43,11 +43,11 @@
         <div class="content">The Progressive JavaScript Framework</div>
       </div>
       <footer class="card-footer">
-        <a class="card-footer-item" href="http://vuejs.org/v2/guide/">
+        <a class="card-footer-item" href="http://vuejs.org/v2/guide/" target="_blank">
           <i class="fa fa-fw fa-book"></i>
           Documentation
         </a>
-        <a class="card-footer-item" href="https://github.com/vuejs/vue">
+        <a class="card-footer-item" href="https://github.com/vuejs/vue" target="_blank">
           <i class="fa fa-fw fa-github"></i>
           GitHub
         </a>
@@ -70,11 +70,11 @@
         <div class="content">The PHP Framework For Web Artisans</div>
       </div>
       <footer class="card-footer">
-        <a class="card-footer-item" href="https://laravel.com/docs/5.3">
+        <a class="card-footer-item" href="https://laravel.com/docs/5.3" target="_blank">
           <i class="fa fa-fw fa-book"></i>
           Documentation
         </a>
-        <a class="card-footer-item" href="https://github.com/laravel/laravel">
+        <a class="card-footer-item" href="https://github.com/laravel/laravel" target="_blank">
           <i class="fa fa-fw fa-github"></i>
           GitHub
         </a>
@@ -95,11 +95,11 @@
         <div class="content">Site Rocket Labs quick deployment ecosystem.</div>
       </div>
       <footer class="card-footer">
-        <a class="card-footer-item" href="https://github.com/NukaSRB/Documentation">
+        <a class="card-footer-item" href="https://github.com/NukaSRB/Documentation" target="_blank">
           <i class="fa fa-fw fa-book"></i>
           Documentation
         </a>
-        <a class="card-footer-item" href="https://github.com/nukasrb">
+        <a class="card-footer-item" href="https://github.com/nukasrb" target="_blank">
           <i class="fa fa-fw fa-github"></i>
           GitHub
         </a>
@@ -130,7 +130,7 @@
         </div>
       </div>
       <footer class="card-footer">
-        <a class="card-footer-item" href="http://jscolor.com/">
+        <a class="card-footer-item" href="http://jscolor.com/" target="_blank">
           <i class="fa fa-fw fa-book"></i>
           Documentation
         </a>
