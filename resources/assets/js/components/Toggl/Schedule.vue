@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="panel-block is-block" v-for="schedule in schedules">
-      <div class="columns" :style="{ color: '#' + schedule.client.color }">
+      <div class="columns">
         <div class="column is-6">
           {{ schedule.client.label }}
           ({{ schedule.percentage }}%)

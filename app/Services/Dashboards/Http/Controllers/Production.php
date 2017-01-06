@@ -4,6 +4,7 @@ namespace App\Services\Dashboards\Http\Controllers;
 
 use App\Apis\Toggl\Client as TogglClient;
 use App\Http\Controllers\BaseController;
+use App\Services\Clients\Models\Task;
 use App\Services\Dashboards\Transformers\Event;
 use App\Services\Dashboards\Transformers\Schedule;
 use App\Services\Dashboards\Transformers\Timer;
@@ -33,6 +34,19 @@ class Production extends BaseController
     {
         $events = $this->getUserCalendarEvents()->chunk(4);
 
+        $tasks = Task::with('project.client')->orderByNameAsc()->get()->map(function ($task) {
+            $names = [
+                $task->project->client->label,
+                $task->project->label,
+                $task->label,
+            ];
+
+            return (object)[
+                'id'   => $task->id,
+                'name' => implode(' - ', $names),
+            ];
+        })->sortBy('name')->pluck('name', 'id');
+
         $timer         = $this->getActiveTimer();
         $dailySummary  = $this->getSummary('day');
         $weeklySummary = $this->getSummary('week');
@@ -56,7 +70,7 @@ class Production extends BaseController
                                        });
 
         $this->setViewData(compact('events', 'dailySchedule', 'weeklySchedule', 'timer', 'dailySummary', 'weeklySummary'));
-        $this->setJavascriptData(compact('events', 'dailySchedule', 'weeklySchedule', 'timer', 'dailySummary', 'weeklySummary'));
+        $this->setJavascriptData(compact('tasks', 'events', 'dailySchedule', 'weeklySchedule', 'timer', 'dailySummary', 'weeklySummary'));
 
         return $this->view();
     }
