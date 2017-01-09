@@ -1,28 +1,46 @@
 <template>
-  <div>
-    <nav class="panel">
-      <div class="panel-block">
-        <div class="columns" v-if="timer != null">
+  <div id="timer-box">
+    <nav class="panel" v-if="timer != null">
+      <div class="panel-heading is-clearfix">
+        <div class="is-pulled-left">
+          {{ timer.description }}
+        </div>
+        <div class="is-pulled-right">
+          <a href="https://www.toggl.com/app/timer"
+             class="button is-dark is-outlined is-small"
+             target="_blank"
+          >
+            <span class="icon is-small">
+              <i class="fa fa-power-off"></i>
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="panel-block is-block">
+        <div class="columns">
           <div class="column is-half">
-            <div class="content">
-              {{ timer.description }}
-            </div>
             <div class="columns">
-              <div class="column is-half">
-                <div class="content">
-                  <div id="timer-time-details">
-                    <span id="hours">0</span>:<span id="minutes">00</span>:<span id="seconds">00</span></div>
-                </div>
-              </div>
-              <div class="column is-one-quarter">
-                <a :href="'/timer/stop/' + timer.id" v-if="timer">
-                  <i class="fa fa-fw fa-stop"></i>
-                </a>
-                <i class="fa fa-fw fa-play" v-else></i>
-              </div>
               <div class="column">
-                <i class="fa fa-fw fa-dollar" v-if="timer.billable"></i>
-                <i class="fa fa-fw fa-dollar text-grey-light" v-else></i>
+                <div class="content">
+                  <div class="level">
+                    <div class="level-item">
+                      <div id="timer-time-details">
+                        <span id="hours">0</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="level">
+                    <div class="level-item">
+                      <a @click.prevent="stopTimer()">
+                        <i class="fa fa-fw fa-stop"></i>
+                      </a>
+                    </div>
+                    <div class="level-item">
+                      <i class="fa fa-fw fa-dollar" v-if="timer.billable"></i>
+                      <i class="fa fa-fw fa-dollar text-grey-light" v-else></i>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -30,39 +48,32 @@
             <ul>
               <li title="Client">C: {{ timer.client.name }}</li>
               <li title="Project">P: {{ timer.project.name }}</li>
-              <li title="Task">T: {{ timer.task.name }}</li>
-              <li><a href="https://www.toggl.com/app/timer" class="text-blue" target="_blank">toggl.com</a></li>
+              <li class="truncate" title="Task">T: {{ timer.task.name }}</li>
             </ul>
           </div>
         </div>
       </div>
     </nav>
-    <nav class="panel">
-      <div class="panel-block">
-        <div v-if="timer != null">
-          <div class="columns">
-            <div class="column">
-              <div class="control">
-                <input type="text" class="input" placeholder="What are you working on?" id="timer-new-description" />
-              </div>
+    <nav class="panel" v-if="timer == null">
+      <div class="panel-block is-block">
+        <div class="columns">
+          <div class="column">
+            <div class="control">
+              <input type="text" v-model="form.description" class="input" placeholder="What are you working on?" id="timer-new-description" />
             </div>
           </div>
-          <div class="columns">
-            <div class="column">
-              <div class="control has-addons">
-                <span class="select">
-                  <select>
-                    <option v-for="(task, id) in orderedTasks" :value="id" v-text="task"></option>
-                  </select>
-                </span>
-                <a href="" class="button">
+        </div>
+        <div class="columns">
+          <div class="column">
+            <p class="control has-addons">
+              <select id="task-select" placeholder="Select a task" v-model="form.task_id"></select>
+              <a @click.prevent="startTimer()" class="button">
                   <span class="icon">
                     <i class="fa fa-fw fa-play"></i>
                   </span>
-                  <span>Start</span>
-                </a>
-              </div>
-            </div>
+                <span>Start</span>
+              </a>
+            </p>
           </div>
         </div>
       </div>
@@ -77,6 +88,32 @@
   #timer-time-details {
     font-size: 2rem;
   }
+
+  #timer-box {
+    margin-top: 10px;
+  }
+
+  #timer-box .level {
+    margin-bottom: 0;
+  }
+
+  .selectize-control {
+    flex:   1;
+    height: 2.5em;
+  }
+
+  .selectize-input {
+    height:                     2.7em;
+    border-top-right-radius:    0;
+    border-bottom-right-radius: 0;
+  }
+
+  .truncate {
+    width:         200px;
+    white-space:   nowrap;
+    overflow:      hidden;
+    text-overflow: ellipsis;
+  }
 </style>
 <script>
   export default {
@@ -84,46 +121,98 @@
       return {
         timer: app.timer,
         tasks: app.tasks,
+        form:  {
+          _token:      Laravel.csrfToken,
+          task_id:     null,
+          description: null,
+        }
       }
     },
 
     computed: {
-      orderedTasks: function () {
-        return _.orderBy(this.tasks)
+      orderedTasks() {
+        if (typeof this.tasks != 'undefined') {
+          return _.orderBy(this.tasks, 'name')
+        }
       }
     },
 
     mounted() {
       if (this.timer != null) {
         this.upTime(this.timer.start)
+      } else {
+        this.setSelectize()
+      }
+    },
+
+    updated() {
+      if (this.timer != null) {
+        this.upTime(this.timer.start)
+      } else {
+        this.setSelectize()
       }
     },
 
     methods: {
-      upTime(countTo)
-      {
-        var now        = new Date()
-        var countTo    = new Date(countTo)
-        var difference = (now - countTo)
-
-        var hours = Math.floor((difference % (60 * 60 * 1000 * 24)) / (60 * 60 * 1000) * 1)
-        var mins  = Math.floor(((difference % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) / (60 * 1000) * 1)
-        var secs  = Math.floor((((difference % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) % (60 * 1000)) / 1000 * 1)
-
-        document.getElementById('hours').firstChild.nodeValue   = this.pad(hours, 1)
-        document.getElementById('minutes').firstChild.nodeValue = this.pad(mins, 2)
-        document.getElementById('seconds').firstChild.nodeValue = this.pad(secs, 2)
-
-        clearTimeout(this.upTime.to)
-        this.upTime.to = setTimeout(() => { this.upTime(countTo) }, 1000)
+      setSelectize() {
+        $('#task-select').selectize({
+          allowEmptyOption: false,
+          options:          this.orderedTasks,
+          valueField:       'id',
+          labelField:       'name',
+          searchField:      [
+            'id',
+            'name'
+          ],
+          onItemAdd:        (value, item) =>
+                            {
+                              this.form.task_id = value
+                            }
+        })
       },
 
-      pad(n, width, z)
-      {
+      upTime(countTo) {
+        if (document.getElementById('hours') != null) {
+          var now        = new Date()
+          var countTo    = new Date(countTo)
+          var difference = (now - countTo)
+
+          var hours = Math.floor((difference % (60 * 60 * 1000 * 24)) / (60 * 60 * 1000) * 1)
+          var mins  = Math.floor(((difference % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) / (60 * 1000) * 1)
+          var secs  = Math.floor((((difference % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) % (60 * 1000)) / 1000 * 1)
+
+          document.getElementById('hours').firstChild.nodeValue   = this.pad(hours, 1)
+          document.getElementById('minutes').firstChild.nodeValue = this.pad(mins, 2)
+          document.getElementById('seconds').firstChild.nodeValue = this.pad(secs, 2)
+
+          clearTimeout(this.upTime.to)
+          this.upTime.to = setTimeout(() => { this.upTime(countTo) }, 1000)
+        }
+      },
+
+      pad(n, width, z) {
         z = z || '0'
         n = n + ''
 
         return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n
+      },
+
+      startTimer() {
+        this.$http.post('/timer/start', this.form)
+            .then((response) =>
+            {
+              $('#task-select')[0].selectize.destroy();
+
+              this.timer = response.body
+            })
+      },
+
+      stopTimer() {
+        this.$http.post('/timer/stop/' + this.timer.id, this.form)
+            .then((response) =>
+            {
+              this.timer = null
+            })
       }
     }
   }

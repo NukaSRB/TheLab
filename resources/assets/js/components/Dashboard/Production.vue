@@ -7,6 +7,7 @@
     </div>
     <div class="column is-one-quarter">
       <active-timer></active-timer>
+      <br />
       <scheduled-hours type="Daily" :schedules="dailySchedule"></scheduled-hours>
       <scheduled-hours type="Weekly" :schedules="weeklySchedule"></scheduled-hours>
     </div>

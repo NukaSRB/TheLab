@@ -10,6 +10,7 @@ window._ = require('lodash');
 window.$ = window.jQuery = require('jquery');
 window.Tether = require('tether');
 window.jscolor = require('./vendor/jscolor')
+window.selectize = require('selectize')
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces

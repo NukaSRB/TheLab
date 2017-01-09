@@ -32,45 +32,18 @@ class Production extends BaseController
 
     public function __invoke()
     {
+        $toggl  = auth()->user()->getProvider('toggl');
         $events = $this->getUserCalendarEvents()->chunk(4);
-
-        $tasks = Task::with('project.client')->orderByNameAsc()->get()->map(function ($task) {
-            $names = [
-                $task->project->client->label,
-                $task->project->label,
-                $task->label,
-            ];
-
-            return (object)[
-                'id'   => $task->id,
-                'name' => implode(' - ', $names),
-            ];
-        })->sortBy('name')->pluck('name', 'id');
+        $tasks  = $this->getAvailableTasks();
 
         $timer         = $this->getActiveTimer();
         $dailySummary  = $this->getSummary('day');
         $weeklySummary = $this->getSummary('week');
 
-        $dailySchedule = ScheduledHour::with('client')
-                                      ->where('user_id', auth()->id())
-                                      ->where('date', date('Y-m-d'))
-                                      ->get()
-                                      ->transform(function ($scheduled) use ($dailySummary, $timer) {
-                                          return $this->transformSchedule($scheduled, $dailySummary, $timer);
-                                      });
-
-        $weeklySchedule = ScheduledHour::with('client')
-                                       ->where('user_id', auth()->id())
-                                       ->where('date', '>=', Carbon::now()->startOfWeek()->startOfDay())
-                                       ->where('date', '<=', Carbon::now()->endOfWeek()->endOfDay())
-                                       ->get()
-                                       ->groupBy('client_id')
-                                       ->transform(function ($scheduled) use ($weeklySummary, $timer) {
-                                           return $this->transformSchedule($scheduled, $weeklySummary, $timer);
-                                       });
+        list($dailySchedule, $weeklySchedule) = $this->getSchedule($timer, $dailySummary, $weeklySummary);
 
         $this->setViewData(compact('events', 'dailySchedule', 'weeklySchedule', 'timer', 'dailySummary', 'weeklySummary'));
-        $this->setJavascriptData(compact('tasks', 'events', 'dailySchedule', 'weeklySchedule', 'timer', 'dailySummary', 'weeklySummary'));
+        $this->setJavascriptData(compact('toggl', 'tasks', 'events', 'dailySchedule', 'weeklySchedule', 'timer', 'dailySummary', 'weeklySummary'));
 
         return $this->view();
     }
@@ -111,14 +84,12 @@ class Production extends BaseController
                 break;
         }
 
-        // todo - convert this to a user's actual toggl id
         $summary = $this->toggl
             ->handle('Summary', [
                 'workspace_id' => (int)env('TOGGL_WORKSPACE_ID'),
                 'since'        => $since,
                 'until'        => Carbon::now(),
-                'user_ids'     => 1777547, // Travis
-                // 'user_ids'     => 1296913, // David
+                'user_ids'     => auth()->user()->getProvider('toggl')->social_id,
             ]);
 
         $results = [];
@@ -135,29 +106,6 @@ class Production extends BaseController
         cache()->put($cacheKey, $results, 5);
 
         return $results;
-    }
-
-    protected function transformSchedule($scheduled, $summary, $timer)
-    {
-        // If there are multiple entries per client, consolidate into one entry.
-        if ($scheduled instanceof Collection) {
-            $hours            = $scheduled->sum('hours');
-            $scheduled        = $scheduled->first();
-            $scheduled->hours = $hours;
-        }
-
-        $scheduled->time = 0;
-
-        if (array_key_exists($scheduled->client->label, $summary)) {
-            $scheduled->time = $summary[$scheduled->client->label]['decimal'];
-        }
-
-        if (! is_null($timer) && $timer['client']['id'] === (int)$scheduled->client->toggl_id) {
-            $duration        = time() + $timer['duration'];
-            $scheduled->time = $scheduled->time + (decimalHours(convertMicroSecondsArray($duration)));
-        }
-
-        return Schedule::transform($scheduled);
     }
 
     private function getUserCalendarEvents()
@@ -195,5 +143,81 @@ class Production extends BaseController
         cache()->put($cacheKey, $events, 5);
 
         return $events;
+    }
+
+    /**
+     * @param $timer
+     * @param $dailySummary
+     * @param $weeklySummary
+     *
+     * @return array
+     */
+    private function getSchedule($timer, $dailySummary, $weeklySummary)
+    {
+        $schedule = ScheduledHour::with('project.client')
+                                 ->where('user_id', auth()->id())
+                                 ->where('date', '>=', Carbon::now()->startOfWeek()->startOfDay())
+                                 ->where('date', '<=', Carbon::now()->endOfWeek()->endOfDay())
+                                 ->get();
+
+        $dailySchedule = $schedule->getWhere('date', Carbon::now()->startOfDay())
+                                  ->transform(function ($scheduled) use ($dailySummary, $timer) {
+                                      return $this->transformSchedule($scheduled, $dailySummary, $timer);
+                                  })
+                                  ->sortBy('client.name')
+                                  ->values();
+
+        $weeklySchedule = $schedule->groupBy('project_id')
+                                   ->transform(function ($scheduled) use ($weeklySummary, $timer) {
+                                       return $this->transformSchedule($scheduled, $weeklySummary, $timer);
+                                   })
+                                   ->sortBy('client.name')
+                                   ->values();
+
+        return [$dailySchedule, $weeklySchedule];
+    }
+
+    protected function transformSchedule($scheduled, $summary, $timer)
+    {
+        // If there are multiple entries per client, consolidate into one entry.
+        if ($scheduled instanceof Collection) {
+            $hours            = $scheduled->sum('hours');
+            $scheduled        = $scheduled->first();
+            $scheduled->hours = $hours;
+        }
+
+        $scheduled->time = 0;
+
+        if (array_key_exists($scheduled->project->client->label, $summary)) {
+            $scheduled->time = $summary[$scheduled->project->client->label]['decimal'];
+        }
+
+        if (! is_null($timer) && $timer['client']['id'] === (int)$scheduled->project->client->toggl_id) {
+            $duration        = time() + $timer['duration'];
+            $scheduled->time = $scheduled->time + (decimalHours(convertMicroSecondsArray($duration)));
+        }
+
+        return Schedule::transform($scheduled);
+    }
+
+    /**
+     * @return mixed
+     */
+    private function getAvailableTasks()
+    {
+        $tasks = Task::with('project.client')->orderByNameAsc()->get()->map(function ($task) {
+            $names = [
+                $task->project->client->label,
+                $task->project->label,
+                $task->label,
+            ];
+
+            return (object)[
+                'id'   => $task->id,
+                'name' => implode(' - ', $names),
+            ];
+        })->sortBy('name');
+
+        return $tasks;
     }
 }

@@ -2,8 +2,8 @@
 @section('css')
   <style>
     @foreach ($weeklySchedule as $schedule)
-    .{{ $schedule['client']['name'] }}::-webkit-progress-value {
-      background-color: #{{ $schedule['client']['color'] }};
+    .{{ $schedule['project']['name'] }}::-webkit-progress-value {
+      background-color: #{{ $schedule['project']['color'] }};
     }
     @endforeach
   </style>

@@ -13,9 +13,14 @@ class Schedule extends Transformer
     {
         return [
             'client'     => [
-                'label' => $resource->client->label,
-                'name'  => $resource->client->name,
-                'color' => $resource->client->color,
+                'abbreviation' => $resource->project->client->abbreviation,
+                'label'        => $resource->project->client->label,
+                'name'         => $resource->project->client->name,
+            ],
+            'project'    => [
+                'label' => $resource->project->label,
+                'name'  => $resource->project->name,
+                'color' => $resource->project->color,
             ],
             'time'       => $resource->time,
             'hours'      => $resource->hours,

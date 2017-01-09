@@ -4,7 +4,7 @@ namespace App\Services\Scheduling\Models;
 
 use App\Models\BaseModel;
 use App\Models\User;
-use App\Services\Clients\Models\Client;
+use App\Services\Clients\Models\Project;
 
 class ScheduledHour extends BaseModel
 {
@@ -12,7 +12,7 @@ class ScheduledHour extends BaseModel
 
     protected $fillable = [
         'user_id',
-        'client_id',
+        'project_id',
         'date',
         'hours',
         'note',
@@ -27,8 +27,8 @@ class ScheduledHour extends BaseModel
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function client()
+    public function project()
     {
-        return $this->belongsTo(Client::class, 'client_id');
+        return $this->belongsTo(Project::class, 'project_id');
     }
 }

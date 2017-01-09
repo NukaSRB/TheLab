@@ -18,6 +18,7 @@ class CreateClientsTable extends Migration
             $table->string('asana_id')->index()->nullable();
             $table->string('toggl_id')->index()->nullable();
             $table->string('name')->index();
+            $table->string('abbreviation')->nullable();
             $table->string('label');
             $table->string('color', 6)->nullable();
             $table->timestamps();

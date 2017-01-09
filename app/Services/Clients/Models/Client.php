@@ -15,6 +15,7 @@ class Client extends BaseModel
     protected $fillable = [
         'asana_id',
         'toggl_id',
+        'abbreviation',
         'label',
         'color',
     ];

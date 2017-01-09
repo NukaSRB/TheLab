@@ -4,8 +4,7 @@
       Weekly Schedule
     </div>
     <div class="is-pulled-right">
-      {{--todo - convert this to the user's toggl id--}}
-      <a href="https://www.toggl.com/app/reports/summary/901085/period/thisWeek/users/1777547/billable/both"
+      <a href="https://www.toggl.com/app/reports/summary/901085/period/thisWeek/users/{{ auth()->user()->getProvider('toggl')->social_id }}/billable/both"
          class="button is-dark is-outlined is-small"
          target="_blank"
       >

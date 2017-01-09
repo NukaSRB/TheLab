@@ -16,7 +16,7 @@ class CreateScheduledHoursTable extends Migration
         Schema::create('scheduled_hours', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
-            $table->integer('client_id')->unsigned()->index();
+            $table->integer('project_id')->unsigned()->index();
             $table->date('date')->index();
             $table->smallInteger('hours')->unsigned();
             $table->text('note')->nullable();
@@ -28,9 +28,9 @@ class CreateScheduledHoursTable extends Migration
                   ->on('users')
                   ->onDelete('cascade');
 
-            $table->foreign('client_id')
+            $table->foreign('project_id')
                   ->references('id')
-                  ->on('clients')
+                  ->on('client_projects')
                   ->onDelete('cascade');
         });
     }
