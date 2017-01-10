@@ -36,8 +36,8 @@
                       </a>
                     </div>
                     <div class="level-item">
-                      <i class="fa fa-fw fa-dollar" v-if="timer.billable"></i>
-                      <i class="fa fa-fw fa-dollar text-grey-light" v-else></i>
+                      <i class="fa fa-fw fa-dollar" v-if="timer.billable" @click="updateTimer({billable: false})"></i>
+                      <i class="fa fa-fw fa-dollar text-grey-light" v-else @click="updateTimer({billable: true})"></i>
                     </div>
                   </div>
                 </div>
@@ -212,6 +212,16 @@
             .then((response) =>
             {
               this.timer = null
+            })
+      },
+
+      updateTimer(options) {
+        options._token = Laravel.csrfToken
+
+        this.$http.post('/timer/update/' + this.timer.id, options)
+            .then((response) =>
+            {
+              this.timer = response.body
             })
       }
     }

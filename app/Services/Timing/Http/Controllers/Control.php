@@ -31,8 +31,6 @@ class Control extends BaseController
         $timeEntry = [
             'description'  => request('description', null),
             'created_with' => 'The Lab',
-            // 'wid'          => (int)env('TOGGL_WORKSPACE_ID'),
-            // 'pid'          => $task->project->toggl_id,
             'tid'          => $task->toggl_id,
             'billable'     => (boolean)$task->project->billable_flag,
         ];
@@ -40,6 +38,28 @@ class Control extends BaseController
         // todo - convert this to user's API key
         $timer = $this->toggl->setApiKey(env('A_TOGGL_KEY'))
                            ->handle('StartTimeEntry', ['time_entry' => $timeEntry]);
+
+        if (array_key_exists('data', $timer)) {
+            $timer = null;
+        }
+
+        if (! is_null($timer)) {
+            $timer = Timer::transform($timer);
+        }
+
+        return response()->json($timer, 200);
+    }
+
+    public function update($id)
+    {
+        $timeEntry = request()->except('_token');
+
+        if (isset($timeEntry['billable'])) {
+            $timeEntry['billable'] = (boolean)$timeEntry['billable'];
+        }
+
+        $timer = $this->toggl->setApiKey(env('A_TOGGL_KEY'))
+                             ->handle('UpdateTimeEntry', ['id' => (int)$id, 'time_entry' => $timeEntry]);
 
         if (array_key_exists('data', $timer)) {
             $timer = null;
