@@ -1,0 +1,19 @@
+//@import "../../../../../vendor/bower_components/foundation-sites/scss/components/callout";
+
+.callout {
+  @each $label, $map in $brands {
+    $color: map-get($map, color);
+    $bgColor: map-get($map, bgColor);
+    $border: map-get($map, border);
+
+    &.#{$label} {
+      color:            $color;
+      background-color: $bgColor;
+      border-color:     $border;
+
+      a {
+        color: darken($border, 10%);
+      }
+    }
+  }
+}

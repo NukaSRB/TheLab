@@ -70,3 +70,12 @@ You will want to get an admin toggl key.  Ask David for this.
 <a name="apis-asana"></a>
 ### Asana
 In progress...
+
+<a name="apis-gitlab"></a>
+### GitLab
+
+1. Go to your profile in [GitLab](http://gitlab.siterocket.com)
+1. Select applications
+1. Create a new application
+1. Use the Application ID, Secret and redirect URI and add them to your `.env`.
+    - The redirect URI should be <your-domain>/link/callback/gitlab

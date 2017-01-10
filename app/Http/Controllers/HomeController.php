@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Apis\Asana\Client as AsanaClient;
-use App\Apis\Toggl\Client as TogglClient;
+use Vinkla\GitLab\GitLabManager;
 
 class HomeController extends BaseController
 {
-    public function index(TogglClient $toggle, AsanaClient $asana)
+    public function index(GitLabManager $gitlab)
     {
+        dd($gitlab->api('projects')->all());
         $this->setPageTitle('JumpGate Demo');
 
         return $this->view();

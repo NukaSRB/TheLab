@@ -48,6 +48,11 @@ return [
                 // 'prompt'      => 'consent',
             ],
         ],
+        [
+            'driver' => 'gitlab',
+            'scopes' => [],
+            'extras' => [],
+        ],
     ],
 
     /*

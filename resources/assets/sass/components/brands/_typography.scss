@@ -1,0 +1,11 @@
+@each $label, $map in $brands {
+  .text-#{$label} {
+    color: map-get($map, color) !important;
+  }
+  .text-#{$label}-alt {
+    color: map-get($map, bgColor) !important;
+  }
+  .#{$label} {
+    background-color: map-get($map, bgColor) !important;
+  }
+}

@@ -11,24 +11,24 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $providers = [];
+    protected $providers = [
+        \App\Http\Routes\Admin::class,
+        \App\Http\Routes\Home::class,
 
-    public function __construct($app)
-    {
-        parent::__construct($app);
+        \JumpGate\Users\Http\Routes\Guest::class,
+        \JumpGate\Users\Http\Routes\Auth::class,
 
-        $services = collect(
-            json_decode(
-                file_get_contents(base_path('bootstrap/services.json'))
-            )
-        );
+        \App\Services\Clients\Http\Routes\Client::class,
+        \App\Services\Clients\Http\Routes\Project::class,
+        \App\Services\Clients\Http\Routes\Task::class,
 
-        $this->providers = $services->flatMap(function ($service) {
-            if (isset($service->routes)) {
-                return $service->routes;
-            }
-        })->toArray();
-    }
+        \App\Services\Dashboards\Http\Routes\Production::class,
+
+        \App\Services\Linking\Http\Routes\Index::class,
+        \App\Services\Linking\Http\Routes\Links::class,
+
+        \App\Services\Timing\Http\Routes\Control::class,
+    ];
 
     /**
      * Define your route model bindings, pattern filters, etc.

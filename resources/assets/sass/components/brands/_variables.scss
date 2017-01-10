@@ -1,0 +1,72 @@
+$reddit: #cee3f8;
+$redditBorder: darken($reddit, 10%);
+
+$toggl: #f30c16;
+$togglBorder: darken($toggl, 10%);
+
+$youtube: #cd201f;
+$youtubeBorder: darken($youtube, 10%);
+$youtubeDark: #6c3e3c;
+
+$twitter: #55acee;
+$twitterBorder: darken($twitter, 10%);
+$twitterDark: #2f567b;
+
+$slackBlue: #6ecadc;
+$slackYellow: #e9a820;
+$slackRed: #e01563;
+$slackGreen: #3eb991;
+
+$google: #dd4b39;
+$googleBorder: darken($google, 10%);
+
+$googleBlue: #4285f4;
+$googleYellow: #fbbc05;
+$googleRed: #ea4335;
+$googleGreen: #34a853;
+
+$gitlab: #fca326;
+$gitlabBorder: darken($gitlab, 10%);
+
+$gitlabYellow: #fca326;
+$gitlabOrange: #fc6d26;
+$gitlabRed: #e24329;
+$gitlabPurple: #554488;
+
+$brands: (
+                 reddit: (
+                         color: #336699,
+                         bgColor: $reddit,
+                         border: $redditBorder,
+                 ),
+                 toggl: (
+                         color: $white,
+                         bgColor: $toggl,
+                         border: $togglBorder,
+                 ),
+                 youtube: (
+                         color: $white,
+                         bgColor: $youtube,
+                         border: $youtubeBorder,
+                 ),
+                 twitter: (
+                         color: $white,
+                         bgColor: $twitter,
+                         border: $twitterBorder,
+                 ),
+                 slack: (
+                         color: $white,
+                         bgColor: $slackGreen,
+                         border: $slackBlue,
+                 ),
+                 google: (
+                         color: $white,
+                         bgColor: $google,
+                         border: $googleBorder,
+                 ),
+                 gitlab: (
+                         color: $white,
+                         bgColor: $gitlab,
+                         border: $gitlabBorder,
+                 ),
+         )

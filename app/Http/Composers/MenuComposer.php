@@ -94,6 +94,10 @@ class MenuComposer
             });
         } else {
             $rightMenu->dropdown('user', auth()->user()->first_name, function (DropDown $dropDown) {
+                $dropDown->link('user_link', function (Link $link) {
+                    $link->name = 'Linked Accounts';
+                    $link->url  = route('link.index');
+                });
                 $dropDown->link('user_logout', function (Link $link) {
                     $link->name = 'Logout';
                     $link->url  = route('auth.logout');

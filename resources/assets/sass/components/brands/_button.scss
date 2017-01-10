@@ -1,0 +1,5 @@
+//@each $label, $map in $brands {
+//  .btn-#{$label} {
+//    @include button-variant(map-get($map, color), map-get($map, bgColor), map-get($map, border));
+//  }
+//}

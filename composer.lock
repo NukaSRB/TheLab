@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "12b658431711815655699232b2698558",
-    "content-hash": "3f702850f34a15311da99791c3b80f64",
+    "hash": "91e9771d47a6f02266b0de3377203dfa",
+    "content-hash": "1b3025d6f7b220d58ace2838a68b4b2c",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -568,6 +568,65 @@
                 "oauth2"
             ],
             "time": "2016-11-02 14:59:14"
+        },
+        {
+            "name": "graham-campbell/manager",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GrahamCampbell/Laravel-Manager.git",
+                "reference": "e6ab47a8971da6fd18bc7ced546f0d24cb7ebe3a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GrahamCampbell/Laravel-Manager/zipball/e6ab47a8971da6fd18bc7ced546f0d24cb7ebe3a",
+                "reference": "e6ab47a8971da6fd18bc7ced546f0d24cb7ebe3a",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "5.1.*|5.2.*|5.3.*|5.4.*",
+                "illuminate/support": "5.1.*|5.2.*|5.3.*|5.4.*",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "graham-campbell/testbench-core": "^1.1",
+                "mockery/mockery": "^0.9.4",
+                "phpunit/phpunit": "^4.8|^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GrahamCampbell\\Manager\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Graham Campbell",
+                    "email": "graham@alt-three.com"
+                }
+            ],
+            "description": "Manager Provides Some Manager Functionality For Laravel 5",
+            "keywords": [
+                "Graham Campbell",
+                "GrahamCampbell",
+                "Laravel Manager",
+                "Laravel-Manager",
+                "connector",
+                "framework",
+                "interface",
+                "laravel",
+                "manager"
+            ],
+            "time": "2017-01-01 13:08:54"
         },
         {
             "name": "guzzle/guzzle",
@@ -1237,6 +1296,54 @@
             "time": "2017-01-02 20:26:36"
         },
         {
+            "name": "kriswallsmith/buzz",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kriswallsmith/Buzz.git",
+                "reference": "d4041666c3ffb379af02a92dabe81c904b35fab8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kriswallsmith/Buzz/zipball/d4041666c3ffb379af02a92dabe81c904b35fab8",
+                "reference": "d4041666c3ffb379af02a92dabe81c904b35fab8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "suggest": {
+                "ext-curl": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Buzz": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kris Wallsmith",
+                    "email": "kris.wallsmith@gmail.com",
+                    "homepage": "http://kriswallsmith.net/"
+                }
+            ],
+            "description": "Lightweight HTTP client",
+            "homepage": "https://github.com/kriswallsmith/Buzz",
+            "keywords": [
+                "curl",
+                "http client"
+            ],
+            "time": "2015-06-25 17:26:56"
+        },
+        {
             "name": "laracasts/presenter",
             "version": "0.2.0",
             "source": {
@@ -1712,6 +1819,62 @@
                 "twitter"
             ],
             "time": "2016-08-17 00:36:58"
+        },
+        {
+            "name": "m4tthumphrey/php-gitlab-api",
+            "version": "7.15.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/m4tthumphrey/php-gitlab-api.git",
+                "reference": "4c934c61e8d17db0d19a0679006a7b5fcb86e90c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/m4tthumphrey/php-gitlab-api/zipball/4c934c61e8d17db0d19a0679006a7b5fcb86e90c",
+                "reference": "4c934c61e8d17db0d19a0679006a7b5fcb86e90c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-xml": "*",
+                "kriswallsmith/buzz": ">=0.7",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Gitlab\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thibault Duplessis",
+                    "email": "thibault.duplessis@gmail.com",
+                    "homepage": "http://ornicar.github.com"
+                },
+                {
+                    "name": "KNPLabs Team",
+                    "homepage": "http://knplabs.com"
+                },
+                {
+                    "name": "Matt Humphrey",
+                    "homepage": "http://m4tt.io"
+                }
+            ],
+            "description": "GitLab API client",
+            "homepage": "https://github.com/m4tthumphrey/php-gitlab-api",
+            "keywords": [
+                "api",
+                "gitlab"
+            ],
+            "time": "2016-10-03 18:13:47"
         },
         {
             "name": "maximebf/debugbar",
@@ -2538,6 +2701,85 @@
                 "uuid"
             ],
             "time": "2016-10-31 14:25:20"
+        },
+        {
+            "name": "socialiteproviders/gitlab",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SocialiteProviders/GitLab.git",
+                "reference": "b75e585ce3b794bd2b998fb5fc95c6fc15c33cd2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SocialiteProviders/GitLab/zipball/b75e585ce3b794bd2b998fb5fc95c6fc15c33cd2",
+                "reference": "b75e585ce3b794bd2b998fb5fc95c6fc15c33cd2",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0",
+                "socialiteproviders/manager": "~2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SocialiteProviders\\GitLab\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christoffer Martinsen",
+                    "email": "christoffermartinsen@gmail.com"
+                }
+            ],
+            "description": "GitLab OAuth2 Provider for Laravel Socialite",
+            "time": "2016-06-18 03:29:12"
+        },
+        {
+            "name": "socialiteproviders/manager",
+            "version": "v2.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SocialiteProviders/Manager.git",
+                "reference": "775bd7f25c71ed88e9ae73ed52ba129fecc7abd0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SocialiteProviders/Manager/zipball/775bd7f25c71ed88e9ae73ed52ba129fecc7abd0",
+                "reference": "775bd7f25c71ed88e9ae73ed52ba129fecc7abd0",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/socialite": "~2.0",
+                "php": "^5.6 || ^7.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.4",
+                "phpunit/phpunit": "^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SocialiteProviders\\Manager\\": "src/",
+                    "SocialiteProviders\\Manager\\Test\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andy Wendt",
+                    "email": "andy@awendt.com"
+                }
+            ],
+            "description": "Easily add new or override built-in providers in Laravel Socialite.",
+            "time": "2016-12-04 07:11:20"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3420,6 +3662,63 @@
                 "laravel 5"
             ],
             "time": "2016-04-13 16:44:03"
+        },
+        {
+            "name": "vinkla/gitlab",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vinkla/laravel-gitlab.git",
+                "reference": "a42e29f334d64e17a0d5ebce5fb98dcee097e984"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vinkla/laravel-gitlab/zipball/a42e29f334d64e17a0d5ebce5fb98dcee097e984",
+                "reference": "a42e29f334d64e17a0d5ebce5fb98dcee097e984",
+                "shasum": ""
+            },
+            "require": {
+                "graham-campbell/manager": "^2.5",
+                "illuminate/contracts": "5.3.* || 5.4.*",
+                "illuminate/support": "5.3.* || 5.4.*",
+                "m4tthumphrey/php-gitlab-api": "^7.15",
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "graham-campbell/testbench": "^3.3",
+                "mockery/mockery": "^0.9.5",
+                "phpunit/phpunit": "^5.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Vinkla\\GitLab\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vincent Klaiber",
+                    "email": "hello@vinkla.com",
+                    "homepage": "https://vinkla.com"
+                }
+            ],
+            "description": "A GitLab bridge for Laravel",
+            "keywords": [
+                "api",
+                "git",
+                "gitlab",
+                "laravel"
+            ],
+            "time": "2017-01-01 13:46:23"
         },
         {
             "name": "vlucas/phpdotenv",

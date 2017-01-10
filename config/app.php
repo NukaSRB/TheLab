@@ -190,7 +190,8 @@ return [
         Camroncade\Timezone\TimezoneServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Torann\LaravelAsana\ServiceProvider::class,
-        Laravel\Socialite\SocialiteServiceProvider::class,
+        SocialiteProviders\Manager\ServiceProvider::class,
+        Vinkla\GitLab\GitLabServiceProvider::class,
     ],
 
     /*
@@ -244,6 +245,7 @@ return [
         'Str'          => Illuminate\Support\Str::class,
         'Asana'        => Torann\LaravelAsana\Facade::class,
         'Socialite'    => Laravel\Socialite\Facades\Socialite::class,
+        'GitLab'       => Vinkla\GitLab\Facades\GitLab::class,
     ],
 
 ];
