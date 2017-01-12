@@ -3,6 +3,8 @@
 namespace App\Services\Timing\Transformers;
 
 use App\Apis\Toggl\Client;
+use App\Services\Clients\Models\Project;
+use App\Services\Clients\Models\Task;
 use App\Transformers\Transformer;
 
 class Timer extends Transformer
@@ -27,11 +29,9 @@ class Timer extends Transformer
 
     private static function getDetails($resource)
     {
-        $togglClient = app(Client::class);
-
-        $project = $togglClient->handle('GetProject', ['id' => $resource['pid']]);
-        $client  = $togglClient->handle('GetClient', ['id' => $project['cid']]);
-        $task    = $togglClient->handle('GetTask', ['id' => $resource['tid']]);
+        $task    = Task::where('toggl_id', $resource['tid'])->first();
+        $project = $task->project;
+        $client  = $project->client;
 
         return [
             $client,

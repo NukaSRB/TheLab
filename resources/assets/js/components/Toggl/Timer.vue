@@ -40,6 +40,13 @@
                     <div class="level-item">
                       <a class="button is-small" :class="{ 'is-loading is-disabled': callingAPI }">
                         <span class="icon is-small">
+                          <i class="fa fa-trash"></i>
+                        </span>
+                      </a>
+                    </div>
+                    <div class="level-item">
+                      <a class="button is-small" :class="{ 'is-loading is-disabled': callingAPI }">
+                        <span class="icon is-small">
                           <i class="fa fa-dollar" v-if="timer.billable" @click="updateTimer({billable: false})"></i>
                           <i class="fa fa-dollar text-grey-light" v-else @click="updateTimer({billable: true})"></i>
                         </span>
@@ -52,9 +59,9 @@
           </div>
           <div class="column is-half">
             <ul>
-              <li title="Client">C: {{ timer.client.name }}</li>
-              <li title="Project">P: {{ timer.project.name }}</li>
-              <li class="truncate" title="Task">T: {{ timer.task.name }}</li>
+              <li title="Client">C: {{ timer.client.label }}</li>
+              <li title="Project">P: {{ timer.project.label }}</li>
+              <li class="truncate" title="Task">T: {{ timer.task.label }}</li>
             </ul>
           </div>
         </div>

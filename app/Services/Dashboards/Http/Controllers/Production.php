@@ -31,6 +31,10 @@ class Production extends BaseController
 
     public function __invoke()
     {
+        // $timeEntries = $this->toggl->setApiKey(auth()->user()->getProvider('toggl')->token)
+        //     ->handle('GetTimeEntries');
+        //
+        // dd(\App\Services\Timing\Transformers\Timer::transformAll($timeEntries));
         $toggl  = auth()->user()->getProvider('toggl');
         $events = $this->getUserCalendarEvents()->chunk(4);
         $tasks  = $this->getAvailableTasks();
