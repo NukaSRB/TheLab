@@ -31,13 +31,19 @@
                   </div>
                   <div class="level">
                     <div class="level-item">
-                      <a @click.prevent="stopTimer()">
-                        <i class="fa fa-fw fa-stop"></i>
+                      <a @click.prevent="stopTimer()" class="button is-small" :class="{ 'is-loading is-disabled': callingAPI }">
+                        <span class="icon is-small">
+                          <i class="fa fa-stop"></i>
+                        </span>
                       </a>
                     </div>
                     <div class="level-item">
-                      <i class="fa fa-fw fa-dollar" v-if="timer.billable" @click="updateTimer({billable: false})"></i>
-                      <i class="fa fa-fw fa-dollar text-grey-light" v-else @click="updateTimer({billable: true})"></i>
+                      <a class="button is-small" :class="{ 'is-loading is-disabled': callingAPI }">
+                        <span class="icon is-small">
+                          <i class="fa fa-dollar" v-if="timer.billable" @click="updateTimer({billable: false})"></i>
+                          <i class="fa fa-dollar text-grey-light" v-else @click="updateTimer({billable: true})"></i>
+                        </span>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -119,9 +125,10 @@
   export default {
     data() {
       return {
-        timer: app.timer,
-        tasks: app.tasks,
-        form:  {
+        timer:      app.timer,
+        tasks:      app.tasks,
+        callingAPI: false,
+        form:       {
           _token:      Laravel.csrfToken,
           task_id:     null,
           description: null,
@@ -198,30 +205,63 @@
       },
 
       startTimer() {
+        if (this.callingAPI === true) {
+          return false
+        }
+
+        this.callingAPI = true
+
         this.$http.post('/timer/start', this.form)
             .then((response) =>
             {
               $('#task-select')[0].selectize.destroy();
 
               this.timer = response.body
+
+              this.callingAPI = false
+            }, (error) =>
+            {
+              this.callingAPI = false
             })
       },
 
       stopTimer() {
+        if (this.callingAPI === true) {
+          return false
+        }
+
+        this.callingAPI = true
+
         this.$http.post('/timer/stop/' + this.timer.id, this.form)
             .then((response) =>
             {
               this.timer = null
+
+              this.callingAPI = false
+            }, (error) =>
+            {
+              this.callingAPI = false
             })
       },
 
       updateTimer(options) {
+        if (this.callingAPI === true) {
+          return false
+        }
+
+        this.callingAPI = true
+
         options._token = Laravel.csrfToken
 
         this.$http.post('/timer/update/' + this.timer.id, options)
             .then((response) =>
             {
               this.timer = response.body
+
+              this.callingAPI = false
+            }, (error) =>
+            {
+              this.callingAPI = false
             })
       }
     }

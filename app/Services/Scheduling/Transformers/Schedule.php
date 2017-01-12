@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Services\Dashboards\Transformers;
+namespace App\Services\Scheduling\Transformers;
+
+use App\Transformers\Transformer;
 
 class Schedule extends Transformer
 {

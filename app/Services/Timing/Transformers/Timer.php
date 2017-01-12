@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Services\Dashboards\Transformers;
+namespace App\Services\Timing\Transformers;
 
 use App\Apis\Toggl\Client;
+use App\Transformers\Transformer;
 
 class Timer extends Transformer
 {

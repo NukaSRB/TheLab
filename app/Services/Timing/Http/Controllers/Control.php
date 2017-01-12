@@ -6,6 +6,7 @@ use App\Apis\Toggl\Client;
 use App\Http\Controllers\BaseController;
 use App\Services\Clients\Models\Task;
 use App\Services\Dashboards\Transformers\Timer;
+use App\Services\Timing\Commands\Timer as TimerCommand;
 
 class Control extends BaseController
 {
@@ -35,17 +36,11 @@ class Control extends BaseController
             'billable'     => (boolean)$task->project->billable_flag,
         ];
 
-        // todo - convert this to user's API key
-        $timer = $this->toggl->setApiKey(env('A_TOGGL_KEY'))
+        // todo - check if this exists
+        $timer = $this->toggl->setApiKey(auth()->user()->getProvider('toggl')->token)
                            ->handle('StartTimeEntry', ['time_entry' => $timeEntry]);
 
-        if (array_key_exists('data', $timer)) {
-            $timer = null;
-        }
-
-        if (! is_null($timer)) {
-            $timer = Timer::transform($timer);
-        }
+        $timer = command(TimerCommand::class, $timer, true);
 
         return response()->json($timer, 200);
     }
@@ -58,24 +53,19 @@ class Control extends BaseController
             $timeEntry['billable'] = (boolean)$timeEntry['billable'];
         }
 
-        $timer = $this->toggl->setApiKey(env('A_TOGGL_KEY'))
+        // todo - check if this exists
+        $timer = $this->toggl->setApiKey(auth()->user()->getProvider('toggl')->token)
                              ->handle('UpdateTimeEntry', ['id' => (int)$id, 'time_entry' => $timeEntry]);
 
-        if (array_key_exists('data', $timer)) {
-            $timer = null;
-        }
-
-        if (! is_null($timer)) {
-            $timer = Timer::transform($timer);
-        }
+        $timer = command(TimerCommand::class, $timer, true);
 
         return response()->json($timer, 200);
     }
 
     public function stop($id)
     {
-        // todo - convert this to user's API key
-        $this->toggl->setApiKey(env('A_TOGGL_KEY'))
+        // todo - check if this exists
+        $this->toggl->setApiKey(auth()->user()->getProvider('toggl')->token)
                     ->handle('StopTimeEntry', ['id' => (int)$id]);
 
         return back()

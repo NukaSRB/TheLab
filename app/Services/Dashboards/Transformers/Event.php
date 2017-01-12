@@ -2,6 +2,7 @@
 
 namespace App\Services\Dashboards\Transformers;
 
+use App\Transformers\Transformer;
 use Carbon\Carbon;
 
 class Event extends Transformer

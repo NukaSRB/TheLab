@@ -6,12 +6,11 @@ use App\Apis\Toggl\Client as TogglClient;
 use App\Http\Controllers\BaseController;
 use App\Services\Clients\Models\Task;
 use App\Services\Dashboards\Transformers\Event;
-use App\Services\Dashboards\Transformers\Schedule;
-use App\Services\Dashboards\Transformers\Timer;
-use App\Services\Scheduling\Models\ScheduledHour;
+use App\Services\Scheduling\Commands\ScheduleDetails;
+use App\Services\Timing\Commands\Summary;
+use App\Services\Timing\Commands\Timer;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
 
 class Production extends BaseController
 {
@@ -36,11 +35,9 @@ class Production extends BaseController
         $events = $this->getUserCalendarEvents()->chunk(4);
         $tasks  = $this->getAvailableTasks();
 
-        $timer         = $this->getActiveTimer();
-        $dailySummary  = $this->getSummary('day');
-        $weeklySummary = $this->getSummary('week');
-
-        list($dailySchedule, $weeklySchedule) = $this->getSchedule($timer, $dailySummary, $weeklySummary);
+        $timer = command(Timer::class, null);
+        list($dailySummary, $weeklySummary) = command(Summary::class);
+        list($dailySchedule, $weeklySchedule) = command(ScheduleDetails::class);
 
         $this->setViewData(compact('events', 'dailySchedule', 'weeklySchedule', 'timer', 'dailySummary', 'weeklySummary'));
         $this->setJavascriptData(compact('toggl', 'tasks', 'events', 'dailySchedule', 'weeklySchedule', 'timer', 'dailySummary', 'weeklySummary'));

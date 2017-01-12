@@ -52,6 +52,10 @@
       }
     },
 
+    mounted() {
+      setInterval(this.checkSchedule(), 30000)
+    },
+
     computed: {
       summary() {
         if (this.type === 'Daily') {
@@ -66,5 +70,11 @@
       'type',
       'schedules'
     ],
+
+    methods: {
+      checkSchedule() {
+
+      }
+    },
   }
 </script>
