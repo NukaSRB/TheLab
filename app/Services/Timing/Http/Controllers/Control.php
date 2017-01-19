@@ -71,4 +71,14 @@ class Control extends BaseController
         return back()
             ->with('message', 'Timer stopped.');
     }
+
+    public function delete($id)
+    {
+        // todo - check if this exists
+        $this->toggl->setApiKey(auth()->user()->getProvider('toggl')->token)
+                    ->handle('DeleteTimeEntry', ['id' => (int)$id]);
+
+        return back()
+            ->with('message', 'Timer deleted.');
+    }
 }

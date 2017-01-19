@@ -27,6 +27,8 @@ class RouteServiceProvider extends ServiceProvider
         \App\Services\Linking\Http\Routes\Index::class,
         \App\Services\Linking\Http\Routes\Links::class,
 
+        \App\Services\Scheduling\Http\Routes\Schedule::class,
+
         \App\Services\Timing\Http\Routes\Control::class,
     ];
 

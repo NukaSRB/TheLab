@@ -42,6 +42,10 @@ class Control extends BaseRoutes implements Routes
               ->name('timer.stop')
               ->uses('Control@stop');
 
+        $router->post('delete/{id}')
+              ->name('timer.delete')
+              ->uses('Control@delete');
+
         $router->any('update/{id}')
               ->name('timer.update')
               ->uses('Control@update');

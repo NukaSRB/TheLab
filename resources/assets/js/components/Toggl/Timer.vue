@@ -38,7 +38,7 @@
                       </a>
                     </div>
                     <div class="level-item">
-                      <a class="button is-small" :class="{ 'is-loading is-disabled': callingAPI }">
+                      <a @click.prevent="deleteTimer()" class="button is-small" :class="{ 'is-loading is-disabled': callingAPI }">
                         <span class="icon is-small">
                           <i class="fa fa-trash"></i>
                         </span>
@@ -240,6 +240,25 @@
         this.callingAPI = true
 
         this.$http.post('/timer/stop/' + this.timer.id, this.form)
+            .then((response) =>
+            {
+              this.timer = null
+
+              this.callingAPI = false
+            }, (error) =>
+            {
+              this.callingAPI = false
+            })
+      },
+
+      deleteTimer() {
+        if (this.callingAPI === true) {
+          return false
+        }
+
+        this.callingAPI = true
+
+        this.$http.post('/timer/delete/' + this.timer.id, this.form)
             .then((response) =>
             {
               this.timer = null
