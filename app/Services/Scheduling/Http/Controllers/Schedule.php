@@ -38,9 +38,6 @@ class Schedule extends BaseController
             return $user->hasRole('employee');
         });
 
-        $startDate = Carbon::now()->startOfWeek();
-        $endDate   = Carbon::now()->addWeeks(3)->endOfWeek();
-
         $availableDays = new Month();
 
         foreach ($users as $user) {
@@ -48,7 +45,11 @@ class Schedule extends BaseController
             $user->schedule = new Month($user);
         }
 
-        $this->setViewData(compact('users', 'scheduledHours', 'startDate', 'endDate', 'availableDays'));
+        $this->setJavascriptData(compact(
+            'users',
+            'scheduledHours',
+            'availableDays'
+        ));
 
         return $this->view();
     }

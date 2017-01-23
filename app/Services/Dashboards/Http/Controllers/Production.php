@@ -31,10 +31,17 @@ class Production extends BaseController
 
     public function __invoke()
     {
-        // $timeEntries = $this->toggl->setApiKey(auth()->user()->getProvider('toggl')->token)
-        //     ->handle('GetTimeEntries');
-        //
-        // dd(\App\Services\Timing\Transformers\Timer::transformAll($timeEntries));
+        $timeEntries = $this->toggl->setApiKey(auth()->user()->getProvider('toggl')->token)
+                                   ->handle('GetTimeEntries');
+
+        $previousTasks = \App\Services\Timing\Transformers\Timer::transformAll($timeEntries)
+                                                                ->unique(function ($timer) {
+                                                                    return $timer['pid'] . $timer['tid'] . $timer['description'];
+                                                                })
+                                                                ->sortByDesc('stop')
+                                                                ->take(10)
+                                                                ->values();
+
         $toggl  = auth()->user()->getProvider('toggl');
         $events = $this->getUserCalendarEvents()->chunk(4);
         $tasks  = $this->getAvailableTasks();
@@ -44,7 +51,7 @@ class Production extends BaseController
         list($dailySchedule, $weeklySchedule) = command(ScheduleDetails::class);
 
         $this->setViewData(compact('events', 'dailySchedule', 'weeklySchedule', 'timer', 'dailySummary', 'weeklySummary'));
-        $this->setJavascriptData(compact('toggl', 'tasks', 'events', 'dailySchedule', 'weeklySchedule', 'timer', 'dailySummary', 'weeklySummary'));
+        $this->setJavascriptData(compact('previousTasks', 'toggl', 'tasks', 'events', 'dailySchedule', 'weeklySchedule', 'timer', 'dailySummary', 'weeklySummary'));
 
         return $this->view();
     }

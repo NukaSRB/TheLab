@@ -76,4 +76,9 @@ class Month
 
         $this->weeks = $weeks->keyBy('weekOfYear');
     }
+
+    public function __toString()
+    {
+        return json_encode($this);
+    }
 }

@@ -15,11 +15,13 @@ require('./delete-link')
  */
 
 import ProductionDashboard from './components/Dashboard/Production.vue'
+import UserSchedule from './components/Schedule/User.vue'
 
 var app = new Vue({
   el: '#app',
 
   components: {
     'production-dashboard': ProductionDashboard,
+    'user-schedule':        UserSchedule,
   }
 });
