@@ -2,6 +2,7 @@
   <div>
     <div class="content">
       <h2>Today's Tasks:</h2>
+      <span>Asana Example Task</span>
     </div>
     <div class="box">
       <article class="media">
