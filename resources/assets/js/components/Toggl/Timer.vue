@@ -93,13 +93,18 @@
       <div class="panel-block is-block" v-for="task in previousTasks">
         <div class="columns">
           <div class="column">
-            <div class="is-pulled-left">
-              <strong>{{ task.description }}</strong>
+            <div class="is-pulled-left" :title="task.description">
+              <strong>{{ trimString(task.description) }}</strong>
             </div>
-            <div class="is-pulled-right">
-              <a @click.prevent="continueTimer(task.task.id, task.description)" class="button">
-                <span class="icon">
+            <div class="control has-addons is-pulled-right">
+              <a @click.prevent="continueTimer(task.task.id, task.description)" class="button is-small">
+                <span class="icon is-small">
                   <i class="fa fa-fw fa-play"></i>
+                </span>
+              </a>
+              <a @click.prevent="useTimer(task.task.id)" class="button is-small">
+                <span class="icon is-small">
+                  <i class="fa fa-fw fa-level-up"></i>
                 </span>
               </a>
             </div>
@@ -157,6 +162,7 @@
         previousTasks: app.previousTasks,
         timer:         app.timer,
         tasks:         app.tasks,
+        selectize:     null,
         callingAPI:    false,
         form:          {
           _token:      Laravel.csrfToken,
@@ -192,7 +198,7 @@
 
     methods: {
       setSelectize() {
-        $('#task-select').selectize({
+        this.selectize = $('#task-select').selectize({
           allowEmptyOption: false,
           options:          this.orderedTasks,
           valueField:       'id',
@@ -206,6 +212,14 @@
                               this.form.task_id = value
                             }
         })
+      },
+
+      trimString(string) {
+        let length = 47
+
+        return string.length > length
+                ? string.substring(0, length - 3) + "..."
+                : string
       },
 
       upTime(countTo) {
@@ -240,6 +254,14 @@
         this.form.description = description
 
         this.startTimer()
+      },
+
+      useTimer(taskId)
+      {
+        this.form.task_id = taskId
+        this.selectize[0].selectize.setValue(taskId)
+
+        return true
       },
 
       startTimer() {
