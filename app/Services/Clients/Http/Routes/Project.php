@@ -37,14 +37,14 @@ class Project extends BaseRoutes implements Routes
     {
         $router->get('create')
                ->name('admin.project.create')
-               ->uses('Project@create');
+               ->uses('ProjectCrud@create');
         $router->post('create')
                ->name('admin.project.create')
                ->uses('Project@store');
 
         $router->get('{id}/edit')
                ->name('admin.project.edit')
-               ->uses('Project@edit');
+               ->uses('ProjectCrud@edit');
         $router->post('{id}/edit')
                ->name('admin.project.edit')
                ->uses('Project@update');
@@ -55,10 +55,14 @@ class Project extends BaseRoutes implements Routes
 
         $router->get('{id}')
                ->name('admin.project.show')
-               ->uses('Project@show');
+               ->uses('ProjectCrud@show');
+
+        $router->any('search')
+               ->name('admin.project.search')
+               ->uses('ProjectCrud@search');
 
         $router->get('/')
                ->name('admin.project.index')
-               ->uses('Project@index');
+               ->uses('ProjectCrud@index');
     }
 }

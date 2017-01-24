@@ -37,14 +37,14 @@ class Task extends BaseRoutes implements Routes
     {
         $router->get('create')
                ->name('admin.task.create')
-               ->uses('Task@create');
+               ->uses('TaskCrud@create');
         $router->post('create')
                ->name('admin.task.create')
                ->uses('Task@store');
 
         $router->get('{id}/edit')
                ->name('admin.task.edit')
-               ->uses('Task@edit');
+               ->uses('TaskCrud@edit');
         $router->post('{id}/edit')
                ->name('admin.task.edit')
                ->uses('Task@update');
@@ -55,10 +55,14 @@ class Task extends BaseRoutes implements Routes
 
         $router->get('{id}')
                ->name('admin.task.show')
-               ->uses('Task@show');
+               ->uses('TaskCrud@show');
+
+        $router->any('search')
+               ->name('admin.task.search')
+               ->uses('TaskCrud@search');
 
         $router->get('/')
                ->name('admin.task.index')
-               ->uses('Task@index');
+               ->uses('TaskCrud@index');
     }
 }

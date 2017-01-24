@@ -37,14 +37,14 @@ class Client extends BaseRoutes implements Routes
     {
         $router->get('create')
                ->name('admin.client.create')
-               ->uses('Client@create');
+               ->uses('ClientCrud@create');
         $router->post('create')
                ->name('admin.client.create')
                ->uses('Client@store');
 
         $router->get('{id}/edit')
                ->name('admin.client.edit')
-               ->uses('Client@edit');
+               ->uses('ClientCrud@edit');
         $router->post('{id}/edit')
                ->name('admin.client.edit')
                ->uses('Client@update');
@@ -55,10 +55,14 @@ class Client extends BaseRoutes implements Routes
 
         $router->get('{id}')
                ->name('admin.client.show')
-               ->uses('Client@show');
+               ->uses('ClientCrud@show');
+
+        $router->any('search')
+               ->name('admin.client.search')
+               ->uses('ClientCrud@search');
 
         $router->get('/')
                ->name('admin.client.index')
-               ->uses('Client@index');
+               ->uses('ClientCrud@index');
     }
 }

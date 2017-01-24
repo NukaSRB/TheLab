@@ -3,12 +3,13 @@
 namespace App\Services\Clients\Models;
 
 use App\Models\BaseModel;
+use Backpack\CRUD\CrudTrait;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Task extends BaseModel
 {
-    use Sluggable, SoftDeletes;
+    use CrudTrait, Sluggable, SoftDeletes;
 
     protected $table = 'client_tasks';
 

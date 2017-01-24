@@ -25,7 +25,10 @@
         "laravel/socialite": "^2.0",
         "pulkitjalan/google-apiclient": "^3.0",
         "vinkla/gitlab": "^2.6",
-        "socialiteproviders/gitlab": "^2.0"
+        "socialiteproviders/gitlab": "^2.0",
+        "backpack/base": "^0.7.14",
+        "backpack/crud": "^3.1",
+        "creativeorange/gravatar": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

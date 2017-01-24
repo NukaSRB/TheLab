@@ -192,6 +192,9 @@ return [
         Torann\LaravelAsana\ServiceProvider::class,
         SocialiteProviders\Manager\ServiceProvider::class,
         Vinkla\GitLab\GitLabServiceProvider::class,
+        Backpack\Base\BaseServiceProvider::class,
+        Backpack\CRUD\CrudServiceProvider::class,
+        Creativeorange\Gravatar\GravatarServiceProvider::class,
     ],
 
     /*
@@ -246,6 +249,7 @@ return [
         'Asana'        => Torann\LaravelAsana\Facade::class,
         'Socialite'    => Laravel\Socialite\Facades\Socialite::class,
         'GitLab'       => Vinkla\GitLab\Facades\GitLab::class,
+        'Gravatar'     => Creativeorange\Gravatar\Facades\Gravatar::class,
     ],
 
 ];

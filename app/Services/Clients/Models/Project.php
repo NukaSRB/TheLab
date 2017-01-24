@@ -3,12 +3,13 @@
 namespace App\Services\Clients\Models;
 
 use App\Models\BaseModel;
+use Backpack\CRUD\CrudTrait;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Project extends BaseModel
 {
-    use Sluggable, SoftDeletes;
+    use CrudTrait, Sluggable, SoftDeletes;
 
     protected $table = 'client_projects';
 
@@ -37,6 +38,17 @@ class Project extends BaseModel
                 'source' => 'label',
             ],
         ];
+    }
+
+    public function getClientAndLabelAttribute()
+    {
+        return $this->client->label .': '. $this->label;
+    }
+
+    public function taskCount()
+    {
+        return $this->hasOne(Task::class)
+            ->selectRaw('project_id, count(*) as count')->groupBy('project_id');
     }
 
     public function client()
