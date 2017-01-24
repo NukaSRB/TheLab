@@ -1,9 +1,13 @@
-{{ $clients->render() }}
-<br />
+<div class="columns">
+  <div class="column is-4 is-offset-4 is-centered">
+    {{ $clients->render() }}
+  </div>
+</div>
 <table class="table is-striped">
   <thead>
     <tr>
       <th>Name</th>
+      <th>Abbreviation</th>
       <th style="width: 100px;">Toggl</th>
       <th style="width: 100px;">Asana</th>
       <th style="width: 40px;">Color</th>
@@ -22,6 +26,7 @@
       @foreach ($clients as $client)
         <tr>
           <td>{{ $client->label }}</td>
+          <td>{{ $client->abbreviation }}</td>
           <td>
             <a href="https://www.toggl.com/app/workspaces/{{ env('TOGGL_WORKSPACE_ID') }}/clients/{{ $client->toggl_id }}"
                target="_blank"
@@ -78,4 +83,8 @@
     @endif
   </tbody>
 </table>
-{{ $clients->render() }}
+<div class="columns">
+  <div class="column is-4 is-offset-4 is-centered">
+    {{ $clients->render() }}
+  </div>
+</div>
