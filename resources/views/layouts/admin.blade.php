@@ -8,7 +8,6 @@
     <div id="app">
       <div class="container-fluid" id="container">
         @include('layouts.partials.menu')
-        @include('layouts.partials.breadcrumbs')
 
         <div id="content">
           <aside class="menu app-sidebar animated grey text-white">
