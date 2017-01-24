@@ -261,74 +261,74 @@
             {
               this.callingAPI = false
             })
+      },
+
+      stopTimer() {
+        if (this.callingAPI === true) {
+          return false
+        }
+
+        this.callingAPI = true
+
+        this.$http.post('/timer/stop/' + this.timer.id, this.form)
+            .then((response) =>
+            {
+              this.timer = null
+
+              this.resetTimerFields()
+              this.callingAPI = false
+            }, (error) =>
+            {
+              this.callingAPI = false
+            })
+      },
+
+      deleteTimer() {
+        if (this.callingAPI === true) {
+          return false
+        }
+
+        this.callingAPI = true
+
+        this.$http.post('/timer/delete/' + this.timer.id, this.form)
+            .then((response) =>
+            {
+              this.timer = null
+
+              this.resetTimerFields()
+              this.callingAPI = false
+            }, (error) =>
+            {
+              this.callingAPI = false
+            })
+      },
+
+      updateTimer(options) {
+        if (this.callingAPI === true) {
+          return false
+        }
+
+        this.callingAPI = true
+
+        options._token = Laravel.csrfToken
+
+        this.$http.post('/timer/update/' + this.timer.id, options)
+            .then((response) =>
+            {
+              this.timer = response.body
+
+              this.callingAPI = false
+            }, (error) =>
+            {
+              this.callingAPI = false
+            })
+      },
+
+      resetTimerFields()
+      {
+        this.form.task_id     = null
+        this.form.description = null
       }
-    },
-
-    stopTimer() {
-      if (this.callingAPI === true) {
-        return false
-      }
-
-      this.callingAPI = true
-
-      this.$http.post('/timer/stop/' + this.timer.id, this.form)
-          .then((response) =>
-          {
-            this.timer = null
-
-            this.resetTimerFields()
-            this.callingAPI = false
-          }, (error) =>
-          {
-            this.callingAPI = false
-          })
-    },
-
-    deleteTimer() {
-      if (this.callingAPI === true) {
-        return false
-      }
-
-      this.callingAPI = true
-
-      this.$http.post('/timer/delete/' + this.timer.id, this.form)
-          .then((response) =>
-          {
-            this.timer = null
-
-            this.resetTimerFields()
-            this.callingAPI = false
-          }, (error) =>
-          {
-            this.callingAPI = false
-          })
-    },
-
-    updateTimer(options) {
-      if (this.callingAPI === true) {
-        return false
-      }
-
-      this.callingAPI = true
-
-      options._token = Laravel.csrfToken
-
-      this.$http.post('/timer/update/' + this.timer.id, options)
-          .then((response) =>
-          {
-            this.timer = response.body
-
-            this.callingAPI = false
-          }, (error) =>
-          {
-            this.callingAPI = false
-          })
-    },
-
-    resetTimerFields()
-    {
-      this.form.task_id     = null
-      this.form.description = null
     }
   }
 </script>
