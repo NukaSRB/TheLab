@@ -16,6 +16,7 @@ require('./delete-link')
 
 import ProductionDashboard from './components/Dashboard/Production.vue'
 import UserSchedule from './components/Schedule/User.vue'
+import EditSchedule from './components/Schedule/Edit.vue'
 
 var app = new Vue({
   el: '#app',
@@ -23,5 +24,6 @@ var app = new Vue({
   components: {
     'production-dashboard': ProductionDashboard,
     'user-schedule':        UserSchedule,
+    'edit-schedule':        EditSchedule,
   }
 });

@@ -22,6 +22,7 @@ class Client extends BaseRoutes implements Routes
     {
         return [
             'web',
+            'auth',
             'active:admin_client',
         ];
     }

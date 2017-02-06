@@ -6,7 +6,7 @@ use JumpGate\Core\Contracts\Routes;
 use JumpGate\Core\Providers\Routes as BaseRoutes;
 use Illuminate\Routing\Router;
 
-class Schedule extends BaseRoutes implements Routes
+class Index extends BaseRoutes implements Routes
 {
     public function namespacing()
     {
@@ -34,12 +34,8 @@ class Schedule extends BaseRoutes implements Routes
 
     public function routes(Router $router)
     {
-        $router->get('edit/{userId}/{weekOfYear}')
-               ->name('admin.schedule.edit')
-               ->uses('Schedule@edit');
-
-        $router->post('edit/{userId}/{weekOfYear}')
-               ->name('admin.schedule.edit')
-               ->uses('Schedule@update');
+        $router->get('/')
+               ->name('admin.schedule.index')
+               ->uses('Index');
     }
 }

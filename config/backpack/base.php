@@ -15,8 +15,8 @@ return [
     'project_name' => 'The Lab',
 
     // Menu logos
-    'logo_lg'   => 'the<b>LAB</b>',
-    'logo_mini' => '<b>SRL</b>',
+    'logo_lg'   => '<img src="/img/logo.png" style="max-height: 3.3rem;"> <span>the<b>LAB</b></span>',
+    'logo_mini' => '<img src="/img/logo.png" alt="" style="max-height: 3.3rem;">',
 
     // Developer or company name. Shown in footer.
     'developer_name' => 'TravisB',

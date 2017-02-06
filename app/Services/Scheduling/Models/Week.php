@@ -51,7 +51,33 @@ class Week
         while ($startOfWeek->format('Y-m-d') <= $endOfWeek->format('Y-m-d')) {
             $data = new Day($startOfWeek, $user);
 
-            $this->dailyTotal->put($startOfWeek->format('Y-m-d'), $data->schedule->sum('hours'));
+            $total = (8 - $data->schedule->sum('hours')) * -1;
+
+            switch ($total) {
+                case 0:
+                    $details = [
+                        'display' => 'Full',
+                        'class'   => 'is-full',
+                        'total'   => $total,
+                    ];
+                    break;
+                case $total > 0:
+                    $details = [
+                        'display' => $total . ' over',
+                        'class'   => 'is-over',
+                        'total'   => $total,
+                    ];
+                    break;
+                case $total < 0:
+                    $details = [
+                        'display' => ($total * -1) . ' open',
+                        'class'   => 'is-under',
+                        'total'   => $total,
+                    ];
+                    break;
+            }
+
+            $this->dailyTotal->put($startOfWeek->format('Y-m-d'), $details);
 
             $days->add($data);
 

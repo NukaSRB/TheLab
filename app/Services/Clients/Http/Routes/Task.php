@@ -22,6 +22,7 @@ class Task extends BaseRoutes implements Routes
     {
         return [
             'web',
+            'auth',
             'active:admin_task',
         ];
     }

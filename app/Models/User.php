@@ -20,7 +20,10 @@ class User extends BaseUser
                            ->orderBy('project_id')
                            ->groupBy('project_id')
                            ->select('project_id')
-                           ->get()
+                           ->get(['project_id'])
+                           ->flatMap(function ($project) {
+                               return [$project->project_id];
+                           })
                            ->toArray();
 
         return Project::with('client')

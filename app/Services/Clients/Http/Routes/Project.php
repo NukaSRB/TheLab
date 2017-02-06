@@ -22,6 +22,7 @@ class Project extends BaseRoutes implements Routes
     {
         return [
             'web',
+            'auth',
             'active:admin_project',
         ];
     }

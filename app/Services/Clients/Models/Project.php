@@ -26,6 +26,10 @@ class Project extends BaseModel
         'created_at',
     ];
 
+    protected $appends = [
+        'clientAndLabel',
+    ];
+
     /**
      * Return the sluggable configuration array for this model.
      *
@@ -42,13 +46,13 @@ class Project extends BaseModel
 
     public function getClientAndLabelAttribute()
     {
-        return $this->client->label .': '. $this->label;
+        return $this->client->label . ': ' . $this->label;
     }
 
     public function taskCount()
     {
         return $this->hasOne(Task::class)
-            ->selectRaw('project_id, count(*) as count')->groupBy('project_id');
+                    ->selectRaw('project_id, count(*) as count')->groupBy('project_id');
     }
 
     public function client()

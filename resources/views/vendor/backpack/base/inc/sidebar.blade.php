@@ -6,7 +6,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
           <div class="pull-left image">
-            <img src="{{ Gravatar::fallback('https://placehold.it/160x160/00a65a/ffffff/&text='. mb_substr(auth()->user()->username, 0, 1))->get(auth()->user()->username) }}" class="img-circle" alt="User Image">
+            <img src="{{ Gravatar::fallback('https://placehold.it/160x160/3c334a/ffffff/&text='. mb_substr(auth()->user()->username, 0, 1))->get(auth()->user()->username) }}" class="img-circle" alt="User Image">
           </div>
           <div class="pull-left info">
             <p>{{ auth()->user()->username }}</p>
@@ -26,13 +26,13 @@
           <li><a href="{{ url(config('backpack.base.route_prefix', 'admin').'/project') }}"><i class="fa fa-tasks"></i> <span>Projects</span></a></li>
           <li><a href="{{ url(config('backpack.base.route_prefix', 'admin').'/task') }}"><i class="fa fa-bars"></i> <span>Task</span></a></li>
 
+          <li class="header">Employees</li>
+          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin').'/schedule') }}"><i class="fa fa-calendar"></i> <span>Schedule</span></a></li>
+
 
           <!-- ======================================= -->
           <li class="header">Dashboards</li>
           <li><a href="{{ route('dashboards.production.index') }}"><i class="fa fa-home"></i> <span>Production Dashboard</span></a></li>
-
-          <li class="header">SITE</li>
-          <li><a href="{{ route('auth.logout') }}"><i class="fa fa-sign-out"></i> <span>{{ trans('backpack::base.logout') }}</span></a></li>
         </ul>
       </section>
       <!-- /.sidebar -->

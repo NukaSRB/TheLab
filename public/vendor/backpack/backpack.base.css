@@ -26,26 +26,26 @@ body.sidebar-collapse .sidebar-menu>li:hover>a>span {
 
 body[class^='skin-purple'] .btn-primary {
   color: #fff;
-  background-color: #605ca8;
-  border-color: #57549C;
+  background-color: #3c334a;
+  border-color: #544360;
 }
 body[class^='skin-purple'] .btn-primary:focus,
 body[class^='skin-purple'] .btn-primary.focus {
   color: #fff;
-  background-color: #7673BD;
+  background-color: #544360;
   border-color: #122b40;
 }
 body[class^='skin-purple'] .btn-primary:hover {
   color: #fff;
-  background-color: #7673BD;
-  border-color: #57549C;
+  background-color: #544360;
+  border-color: #544360;
 }
 body[class^='skin-purple'] .btn-primary:active,
 body[class^='skin-purple'] .btn-primary.active,
 body[class^='skin-purple'] .open > .dropdown-toggle.btn-primary {
   color: #fff;
-  background-color: #7673BD;
-  border-color: #57549C;
+  background-color: #544360;
+  border-color: #544360;
 }
 body[class^='skin-purple'] .btn-primary:active:hover,
 body[class^='skin-purple'] .btn-primary.active:hover,
@@ -57,7 +57,7 @@ body[class^='skin-purple'] .btn-primary:active.focus,
 body[class^='skin-purple'] .btn-primary.active.focus,
 body[class^='skin-purple'] .open > .dropdown-toggle.btn-primary.focus {
   color: #fff;
-  background-color: #57549C;
+  background-color: #544360;
   border-color: #122b40;
 }
 body[class^='skin-purple'] .btn-primary:active,
@@ -83,11 +83,11 @@ body[class^='skin-purple'] fieldset[disabled] .btn-primary:active,
 body[class^='skin-purple'] .btn-primary.disabled.active,
 body[class^='skin-purple'] .btn-primary[disabled].active,
 body[class^='skin-purple'] fieldset[disabled] .btn-primary.active {
-  background-color: #605ca8;
-  border-color: #57549C;
+  background-color: #544360;
+  border-color: #544360;
 }
 body[class^='skin-purple'] .btn-primary .badge {
-  color: #605ca8;
+  color: #544360;
   background-color: #fff;
 }
 
@@ -97,8 +97,8 @@ body[class^='skin-purple'] .pagination>.active>a:hover,
 body[class^='skin-purple'] .pagination>.active>span,
 body[class^='skin-purple'] .pagination>.active>span:focus,
 body[class^='skin-purple'] .pagination>.active>span:hover {
-    background-color: #605ca8;
-    border-color: #57549C;
+    background-color: #544360;
+    border-color: #544360;
 }
 
 
