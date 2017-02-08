@@ -44,21 +44,7 @@ class Schedule extends BaseController
     {
         $user = $this->users->find($userId);
 
-        $startDate = Carbon::parse($date);
-        $endDate   = $startDate->copy()->addDays(4);
-
-        $dates = collector();
-        $date  = $startDate->copy();
-
-        while ($date <= $endDate) {
-            $dates[] = [
-                'short' => $date->format('d M'),
-                'long'  => $date->format('Y-m-d'),
-                'class' => $date->format('Ymd'),
-            ];
-
-            $date = $date->copy()->addDay();
-        }
+        $dates = $this->getDays($date);
 
         $mysqlDates = $dates->flatMap(function ($date) {
             return [$date['long']];
@@ -87,7 +73,14 @@ class Schedule extends BaseController
             $data = collect($mysqlDates)->mapWithKeys(function ($date) use ($schedule) {
                 $hours = $schedule->get($date);
 
-                return [$date => is_null($hours) ? null : $hours->hours];
+                return [
+                    $date => [
+                        'id'     => is_null($hours) ? null : $hours->id,
+                        'hours'  => is_null($hours) ? null : $hours->hours,
+                        'note'   => is_null($hours) ? null : $hours->note,
+                        'repeat' => is_null($hours) ? null : $hours->repeat,
+                    ],
+                ];
             });
 
             return $data;
@@ -104,21 +97,65 @@ class Schedule extends BaseController
             ->each(function ($project, $projectId) use ($userId) {
                 collector($project)
                     ->each(function ($details, $date) use ($userId, $projectId) {
+                        $existingSchedule = $this->scheduledHours->find($details['id']);
+
+                        // If we have a schedule but there are now no hours set, remove it.
+                        if ($existingSchedule && $details['hours'] === '') {
+                            $existingSchedule->delete();
+
+                            return true;
+                        }
+
                         if ($details['hours'] === '') {
                             return true;
                         }
 
-                        $data = [
-                            'user_id'    => $userId,
+                        $update = [
+                            'user_id'    => (int)$userId,
                             'project_id' => $projectId,
                             'date'       => $date,
-                            'hours'      => $details['hours'],
-                            'note'       => $details['note'],
-                            'repeat'     => $details['repeat'],
                         ];
 
-                        $this->scheduledHours->create($data);
+                        $create = [
+                            'user_id'    => (int)$userId,
+                            'project_id' => $projectId,
+                            'date'       => $date,
+                            'hours'      => (int)$details['hours'],
+                            'note'       => $details['note'] == '' ? null : $details['note'],
+                            'repeat'     => isset($details['repeat']) ? Carbon::parse($date)->dayOfWeek : null,
+                        ];
+
+                        $this->scheduledHours->updateOrCreate($update, $create);
                     });
             });
+
+        return redirect(route('admin.schedule.index'))
+            ->with('message', 'Schedule updated.');
+    }
+
+    /**
+     * @param $date
+     *
+     * @return array|\Illuminate\Support\Collection
+     */
+    private function getDays($date)
+    {
+        $startDate = Carbon::parse($date);
+        $endDate   = $startDate->copy()->addDays(4);
+
+        $dates = collector();
+        $date  = $startDate->copy();
+
+        while ($date <= $endDate) {
+            $dates[] = [
+                'short' => $date->format('d M'),
+                'long'  => $date->format('Y-m-d'),
+                'class' => $date->format('Ymd'),
+            ];
+
+            $date = $date->copy()->addDay();
+        }
+
+        return $dates;
     }
 }

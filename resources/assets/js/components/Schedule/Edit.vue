@@ -1,19 +1,20 @@
 <template>
   <div class="box">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/css/selectize.bootstrap3.min.css" />
-    <div class="box-header with-border">
-      <h3 class="box-title">
-        {{ user.first_name }} {{ user.last_name }}
-        Schedule for {{ dates[0].short }}
-        through {{ dates[4].short }}
-      </h3>
-    </div>
-    <div class="box-body">
-      <div class="row">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-2" v-for="date in dates">{{ date.short }}</div>
+    <form method="POST">
+      <input type="hidden" name="_token" :value="csrfToken" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/css/selectize.bootstrap3.min.css" />
+      <div class="box-header with-border">
+        <h3 class="box-title">
+          {{ user.first_name }} {{ user.last_name }}
+          Schedule for {{ dates[0].short }}
+          through {{ dates[4].short }}
+        </h3>
       </div>
-      <form>
+      <div class="box-body">
+        <div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-2" v-for="date in dates">{{ date.short }}</div>
+        </div>
         <div class="row" v-for="(schedule, project_id) in schedules">
           <div class="col-sm-2">
             <small class="text-muted">{{ getFirstEntry(schedule).project.client.label }}</small>
@@ -22,18 +23,23 @@
           </div>
           <div class="col-sm-2" v-for="date in dates">
             <div class="input-group">
+              <input type="hidden" :name="'hours['+ project_id +']['+ date.long +'][id]'" v-model="form[project_id][date.long].id" />
               <input :name="'hours['+ project_id +']['+ date.long +'][hours]'" type="text" class="form-control"
-                     @change="getSums()"
+                     @keyup="getSums()"
                      :data-date="date.class"
-                     v-model="form[project_id][date.long]"
+                     v-model="form[project_id][date.long].hours"
               />
+              <input type="hidden" :name="'hours['+ project_id +']['+ date.long +'][note]'" v-model="form[project_id][date.long].note" />
               <span class="input-group-btn" title="Add Note">
-                <button href="" class="btn btn-primary" style="background-color: #544360;border-radius: 0;">
-                  <i class="fa fa-fw fa-sticky-note-o"></i>
+                <button href="" class="btn btn-primary" style="background-color: #544360;border-radius: 0;" @click.prevent="launchModal(project_id, date.long)">
+                  <i class="fa fa-fw fa-sticky-note-o" v-if="form[project_id][date.long].note == null"></i>
+                  <i class="fa fa-fw fa-sticky-note" v-if="form[project_id][date.long].note != null"></i>
                 </button>
               </span>
               <span class="input-group-addon" title="Repeat Weekly" style="background-color: #544360;border-color: #544360;">
-                <input name="hours['+ project_id +']['+ date.long +'][repeat]'" type="checkbox" aria-label="...">
+                <input :name="'hours['+ project_id +']['+ date.long +'][repeat]'" type="checkbox" aria-label="..."
+                       v-model="form[project_id][date.long].repeat"
+                />
               </span>
             </div>
           </div>
@@ -42,24 +48,42 @@
         <div class="row">
           <div class="col-md-2">&nbsp;</div>
           <div class="col-md-2" v-for="sum in sums">
-            <div class="btn btn-block" :class="{'btn-danger': sum > 8, 'btn-success': sum == 8}">
+            <div class="btn btn-block" :class="{'btn-danger': sum > 8, 'btn-success': sum <= 8}" :style="{opacity: sum < 8 ? '.5' : '1'}">
               {{ sum }}
             </div>
           </div>
         </div>
-      </form>
-    </div>
-    <div class="box-footer">
-      <div class="form-group">
-        <div class="col-sm-2">
-          <input type="submit" value="Save" class="btn btn-primary" />
+      </div>
+      <div class="box-footer">
+        <div class="form-group">
+          <div class="col-sm-2">
+            <input type="submit" value="Save" class="btn btn-primary" />
+          </div>
+          <div class="col-sm-5">&nbsp;</div>
+          <div class="col-sm-4">
+            <select id="project-select" placeholder="Add a project" v-model="new_project_id"></select>
+          </div>
+          <div class="col-sm-1">
+            <button class="btn btn-primary">Add Project</button>
+          </div>
         </div>
-        <div class="col-sm-5">&nbsp;</div>
-        <div class="col-sm-4">
-          <select id="project-select" placeholder="Add a project" v-model="new_project_id"></select>
-        </div>
-        <div class="col-sm-1">
-          <button class="btn btn-primary">Add Project</button>
+      </div>
+    </form>
+    <div class="modal fade" tabindex="-1" role="dialog" id="noteModal" aria-labelledby="noteModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" @click.prevent="closeModal()" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="noteModalLabel">Add Note</h4>
+          </div>
+          <div class="modal-body">
+            <textarea v-model="modal.note" id="noteModalInput" class="form-control" cols="30" rows="5"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" @click.prevent="closeModal()">Close</button>
+            <button type="button" class="btn btn-primary" @click.prevent="saveNote()">Save note</button>
+          </div>
         </div>
       </div>
     </div>
@@ -81,6 +105,7 @@
   export default {
     data() {
       return {
+        csrfToken: Laravel.csrfToken,
         user:      app.user,
         projects:  app.projects,
         dates:     app.dates,
@@ -89,6 +114,11 @@
         selectize: null,
         sums:      [],
         form:      app.form,
+        modal:     {
+          projectId: null,
+          date:      null,
+          note:      null,
+        }
       }
     },
 
@@ -149,6 +179,34 @@
         let key = Object.keys(schedule)[0]
 
         return schedule[key]
+      },
+
+      launchModal(projectId, date) {
+        this.modal.projectId = projectId
+        this.modal.date      = date
+        this.modal.note      = this.form[projectId][date].note
+
+        $('#noteModal').modal('show')
+
+        $('#noteModalInput').focus()
+      },
+
+      closeModal() {
+        this.modal.projectId = null
+        this.modal.date      = null
+        this.modal.note      = null
+
+        $('#noteModal').modal('hide')
+      },
+
+      saveNote() {
+        this.form[this.modal.projectId][this.modal.date].note = this.modal.note
+
+        this.modal.projectId = null
+        this.modal.date      = null
+        this.modal.note      = null
+
+        $('#noteModal').modal('hide')
       },
     }
   }

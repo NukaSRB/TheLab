@@ -16,6 +16,7 @@ class ScheduledHour extends BaseModel
         'project_id',
         'date',
         'hours',
+        'repeat',
         'note',
     ];
 

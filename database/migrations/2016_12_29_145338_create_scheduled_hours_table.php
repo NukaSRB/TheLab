@@ -19,6 +19,7 @@ class CreateScheduledHoursTable extends Migration
             $table->integer('project_id')->unsigned()->index();
             $table->date('date')->index();
             $table->smallInteger('hours')->unsigned();
+            $table->smallInteger('repeat')->unsigned()->nullable();
             $table->text('note')->nullable();
             $table->timestamps();
             $table->softDeletes();
