@@ -133,6 +133,35 @@ class Schedule extends BaseController
             ->with('message', 'Schedule updated.');
     }
 
+    public function getProject($id, $date)
+    {
+        $project = $this->projects->with('client')->find($id);
+
+        $scheduledHour          = new ScheduledHour(['hours' => null, 'note' => null, 'repeat' => null]);
+        $scheduledHour->project = $project;
+
+        $dates = $this->getDays($date);
+
+        $schedule = [
+            $id => $dates->mapWithKeys(function ($date) use ($scheduledHour) {
+                return [$date['long'] => $scheduledHour];
+            }),
+        ];
+
+        $form = [
+            $id => $dates->mapWithKeys(function ($date) {
+                return [$date['long'] => [
+                    'id'     => null,
+                    'hours'  => null,
+                    'note'   => null,
+                    'repeat' => null,
+                ]];
+            }),
+        ];
+
+        return response()->json(compact('schedule', 'form'));
+    }
+
     /**
      * @param $date
      *

@@ -61,10 +61,10 @@
           </div>
           <div class="col-sm-5">&nbsp;</div>
           <div class="col-sm-4">
-            <select id="project-select" placeholder="Add a project" v-model="new_project_id"></select>
+            <select id="project-select" placeholder="Add a project"></select>
           </div>
           <div class="col-sm-1">
-            <button class="btn btn-primary">Add Project</button>
+            <button class="btn btn-primary" @click.prevent="addProject()">Add Project</button>
           </div>
         </div>
       </div>
@@ -105,16 +105,17 @@
   export default {
     data() {
       return {
-        csrfToken: Laravel.csrfToken,
-        user:      app.user,
-        projects:  app.projects,
-        dates:     app.dates,
-        schedules: app.schedules,
-        counts:    {},
-        selectize: null,
-        sums:      [],
-        form:      app.form,
-        modal:     {
+        csrfToken:    Laravel.csrfToken,
+        user:         app.user,
+        projects:     app.projects,
+        dates:        app.dates,
+        schedules:    app.schedules,
+        counts:       {},
+        selectize:    null,
+        sums:         [],
+        form:         app.form,
+        newProjectId: null,
+        modal:        {
           projectId: null,
           date:      null,
           note:      null,
@@ -148,7 +149,7 @@
           ],
           onItemAdd:        (value, item) =>
                             {
-                              this.addProject(value)
+                              this.newProjectId = value
                             }
         })
       },
@@ -208,6 +209,21 @@
 
         $('#noteModal').modal('hide')
       },
+
+      addProject() {
+        this.$http.get('/admin/schedule/new-project/' + this.newProjectId + '/' + this.dates[0].long)
+            .then((response) =>
+            {
+              let body = response.body
+
+              this.form      = Object.assign({}, this.form, body.form)
+              this.schedules = Object.assign({}, this.schedules, body.schedule)
+            })
+        // get project details from the back end
+        // add project to form
+        // add project to projects
+        // add project to schedule
+      }
     }
   }
 </script>

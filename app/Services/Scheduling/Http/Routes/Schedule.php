@@ -34,12 +34,16 @@ class Schedule extends BaseRoutes implements Routes
 
     public function routes(Router $router)
     {
-        $router->get('edit/{userId}/{weekOfYear}')
+        $router->get('edit/{userId}/{date}')
                ->name('admin.schedule.edit')
                ->uses('Schedule@edit');
 
-        $router->post('edit/{userId}/{weekOfYear}')
+        $router->post('edit/{userId}/{date}')
                ->name('admin.schedule.edit')
                ->uses('Schedule@update');
+
+        $router->get('new-project/{id}/{date}')
+               ->name('admin.schedule.new-project')
+               ->uses('Schedule@getProject');
     }
 }
