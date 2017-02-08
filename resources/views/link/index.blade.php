@@ -4,15 +4,16 @@
       <h4>Linked Accounts</h4>
     </div>
     @include('link.partials.linked.google')
+{{--    @if (is_null(auth()->user()->getProvider('toggl')) || auth()->user()->getProvider('toggl')->token === '')--}}
     @if (is_null(auth()->user()->getProvider('toggl')))
-      {{--@include('link.partials.unlinked.toggl')--}}
+      @include('link.partials.unlinked.toggl')
     @else
       @include('link.partials.linked.toggl')
     @endif
-    @if (is_null(auth()->user()->getProvider('gitlab')))
-      @include('link.partials.unlinked.gitlab')
-    @else
-      @include('link.partials.linked.gitlab')
-    @endif
+    {{--@if (is_null(auth()->user()->getProvider('gitlab')))--}}
+      {{--@include('link.partials.unlinked.gitlab')--}}
+    {{--@else--}}
+      {{--@include('link.partials.linked.gitlab')--}}
+    {{--@endif--}}
   </div>
 </div>

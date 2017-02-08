@@ -20,7 +20,9 @@ class Home extends BaseRoutes implements Routes
 
     public function middleware()
     {
-        return ['web'];
+        return [
+            'web',
+        ];
     }
 
     public function patterns()
