@@ -7,6 +7,8 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use JumpGate\Core\Http\Controllers\BaseController as CoreBaseController;
 use JumpGate\Menu\Link;
+use Tamtamchik\SimpleFlash\TemplateFactory;
+use Tamtamchik\SimpleFlash\Templates;
 
 abstract class BaseController extends CoreBaseController
 {

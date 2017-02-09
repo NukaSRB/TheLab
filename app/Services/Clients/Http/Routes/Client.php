@@ -2,6 +2,7 @@
 
 namespace App\Services\Clients\Http\Routes;
 
+use Backpack\CRUD\CrudServiceProvider;
 use JumpGate\Core\Contracts\Routes;
 use JumpGate\Core\Providers\Routes as BaseRoutes;
 use Illuminate\Routing\Router;
@@ -15,7 +16,7 @@ class Client extends BaseRoutes implements Routes
 
     public function prefix()
     {
-        return $this->getContext('admin') . '/client';
+        return $this->getContext('admin');
     }
 
     public function middleware()
@@ -36,34 +37,6 @@ class Client extends BaseRoutes implements Routes
 
     public function routes(Router $router)
     {
-        $router->get('create')
-               ->name('admin.client.create')
-               ->uses('ClientCrud@create');
-        $router->post('create')
-               ->name('admin.client.create')
-               ->uses('Client@store');
-
-        $router->get('{id}/edit')
-               ->name('admin.client.edit')
-               ->uses('ClientCrud@edit');
-        $router->post('{id}/edit')
-               ->name('admin.client.edit')
-               ->uses('Client@update');
-
-        $router->delete('{id}/delete')
-               ->name('admin.client.delete')
-               ->uses('Client@destroy');
-
-        $router->get('{id}')
-               ->name('admin.client.show')
-               ->uses('ClientCrud@show');
-
-        $router->any('search')
-               ->name('admin.client.search')
-               ->uses('ClientCrud@search');
-
-        $router->get('/')
-               ->name('admin.client.index')
-               ->uses('ClientCrud@index');
+        CrudServiceProvider::resource('client', 'ClientCrud');
     }
 }

@@ -17,6 +17,9 @@ class VerifyTogglToken
     public function handle($request, Closure $next, $guard = null)
     {
         if (is_null(auth()->user()->getProvider('toggl')) || auth()->user()->getProvider('toggl')->token === '') {
+            // Store where they were trying to go so we can redirect them later.
+            session()->put('intended', $request->getRequestUri());
+
             return redirect(route('link.toggl'));
         }
 

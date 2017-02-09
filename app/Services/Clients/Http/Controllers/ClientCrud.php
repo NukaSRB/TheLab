@@ -29,6 +29,18 @@ class ClientCrud extends CrudController
         return view('admin.client.show', $this->data);
     }
 
+    public function store()
+    {
+        request()->request->set('color', substr(request('color'), 1));
+        return parent::storeCrud();
+    }
+
+    public function update()
+    {
+        request()->request->set('color', substr(request('color'), 1));
+        return parent::updateCrud();
+    }
+
     private function setColumns()
     {
         $this->crud->setColumns([

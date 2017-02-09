@@ -2,6 +2,7 @@
 
 namespace App\Services\Clients\Http\Routes;
 
+use Backpack\CRUD\CrudServiceProvider;
 use JumpGate\Core\Contracts\Routes;
 use JumpGate\Core\Providers\Routes as BaseRoutes;
 use Illuminate\Routing\Router;
@@ -15,7 +16,7 @@ class Project extends BaseRoutes implements Routes
 
     public function prefix()
     {
-        return $this->getContext('admin') . '/project';
+        return $this->getContext('admin');
     }
 
     public function middleware()
@@ -36,34 +37,6 @@ class Project extends BaseRoutes implements Routes
 
     public function routes(Router $router)
     {
-        $router->get('create')
-               ->name('admin.project.create')
-               ->uses('ProjectCrud@create');
-        $router->post('create')
-               ->name('admin.project.create')
-               ->uses('Project@store');
-
-        $router->get('{id}/edit')
-               ->name('admin.project.edit')
-               ->uses('ProjectCrud@edit');
-        $router->post('{id}/edit')
-               ->name('admin.project.edit')
-               ->uses('Project@update');
-
-        $router->delete('{id}/delete')
-               ->name('admin.project.delete')
-               ->uses('Project@destroy');
-
-        $router->get('{id}')
-               ->name('admin.project.show')
-               ->uses('ProjectCrud@show');
-
-        $router->any('search')
-               ->name('admin.project.search')
-               ->uses('ProjectCrud@search');
-
-        $router->get('/')
-               ->name('admin.project.index')
-               ->uses('ProjectCrud@index');
+        CrudServiceProvider::resource('project', 'ProjectCrud');
     }
 }

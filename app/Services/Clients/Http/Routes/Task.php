@@ -2,6 +2,7 @@
 
 namespace App\Services\Clients\Http\Routes;
 
+use Backpack\CRUD\CrudServiceProvider;
 use JumpGate\Core\Contracts\Routes;
 use JumpGate\Core\Providers\Routes as BaseRoutes;
 use Illuminate\Routing\Router;
@@ -15,7 +16,7 @@ class Task extends BaseRoutes implements Routes
 
     public function prefix()
     {
-        return $this->getContext('admin') . '/task';
+        return $this->getContext('admin');
     }
 
     public function middleware()
@@ -36,34 +37,6 @@ class Task extends BaseRoutes implements Routes
 
     public function routes(Router $router)
     {
-        $router->get('create')
-               ->name('admin.task.create')
-               ->uses('TaskCrud@create');
-        $router->post('create')
-               ->name('admin.task.create')
-               ->uses('Task@store');
-
-        $router->get('{id}/edit')
-               ->name('admin.task.edit')
-               ->uses('TaskCrud@edit');
-        $router->post('{id}/edit')
-               ->name('admin.task.edit')
-               ->uses('Task@update');
-
-        $router->delete('{id}/delete')
-               ->name('admin.task.delete')
-               ->uses('Task@destroy');
-
-        $router->get('{id}')
-               ->name('admin.task.show')
-               ->uses('TaskCrud@show');
-
-        $router->any('search')
-               ->name('admin.task.search')
-               ->uses('TaskCrud@search');
-
-        $router->get('/')
-               ->name('admin.task.index')
-               ->uses('TaskCrud@index');
+        CrudServiceProvider::resource('task', 'TaskCrud');
     }
 }

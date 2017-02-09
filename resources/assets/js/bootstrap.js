@@ -11,6 +11,7 @@ window.$ = window.jQuery = require('jquery');
 window.Tether = require('tether');
 window.jscolor = require('./vendor/jscolor')
 window.selectize = require('selectize')
+require('bootstrap-notify');
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces

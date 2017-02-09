@@ -2,7 +2,7 @@
 
 namespace App\Services\Clients\Http\Controllers;
 
-use App\Services\Clients\Models\Client;
+use App\Services\Clients\Models\Client as ClientModel;
 use App\Services\Clients\Models\Project;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +15,7 @@ class ProjectCrud extends CrudController
         $this->crud->addClause('with', 'client');
         $this->crud->addClause('with', 'taskCount');
         $this->crud->setRoute('admin/project');
+        $this->crud->setEntityNameStrings('project', 'projects');
         $this->crud->setEntityNameStrings('project', 'projects');
 
         $this->crud->enableAjaxTable();
@@ -32,6 +33,18 @@ class ProjectCrud extends CrudController
         $this->data['title'] = trans('backpack::crud.preview') . ' ' . $this->crud->entity_name;
 
         return view('admin.project.show', $this->data);
+    }
+
+    public function store()
+    {
+        request()->request->set('color', substr(request('color'), 1));
+        return parent::storeCrud();
+    }
+
+    public function update()
+    {
+        request()->request->set('color', substr(request('color'), 1));
+        return parent::updateCrud();
     }
 
     private function setFilters()
@@ -153,7 +166,7 @@ class ProjectCrud extends CrudController
             'type'      => 'select2',
             'entity'    => 'client',
             'attribute' => 'label',
-            'model'     => Client::class,
+            'model'     => ClientModel::class,
         ]);
         $this->crud->addField([
             'name'  => 'color',

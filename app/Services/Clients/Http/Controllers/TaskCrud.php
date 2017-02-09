@@ -33,6 +33,16 @@ class TaskCrud extends CrudController
         return view('admin.task.show', $this->data);
     }
 
+    public function store()
+    {
+        return parent::storeCrud();
+    }
+
+    public function update()
+    {
+        return parent::updateCrud();
+    }
+
     private function setFilters()
     {
         $this->crud->addFilter(

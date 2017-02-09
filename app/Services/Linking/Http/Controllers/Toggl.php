@@ -18,7 +18,7 @@ class Toggl extends BaseController
         $provider = auth()->user()->getProvider('toggl');
         $provider->update(compact('token'));
 
-        return redirect(route('link.index'))
+        return redirect(session()->pull('intended'))
             ->with('message', 'Toggl token added.');
     }
 }
