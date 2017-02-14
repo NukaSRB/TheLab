@@ -55,31 +55,20 @@ class MenuComposer
         $rightMenu->dropDown('admin', 'Admin', function (DropDown $dropDown) {
             $dropDown->link('admin_client', function (Link $link) {
                 $link->name = 'Clients';
-                $link->url  = route('admin.client.index');
+                $link->url  = route('crud.client.index');
             });
             $dropDown->link('admin_project', function (Link $link) {
                 $link->name = 'Projects';
-                $link->url  = route('admin.project.index');
+                $link->url  = route('crud.project.index');
             });
             $dropDown->link('admin_task', function (Link $link) {
                 $link->name = 'Tasks';
-                $link->url  = route('admin.task.index');
+                $link->url  = route('crud.task.index');
             });
-        });
-
-        $adminMenu = \Menu::getMenu('adminMenu');
-
-        $adminMenu->link('admin_client', function (Link $link) {
-            $link->name = 'Clients';
-            $link->url  = route('admin.client.index');
-        });
-        $adminMenu->link('admin_project', function (Link $link) {
-            $link->name = 'Projects';
-            $link->url  = route('admin.project.index');
-        });
-        $adminMenu->link('admin_task', function (Link $link) {
-            $link->name = 'Tasks';
-            $link->url  = route('admin.task.index');
+            $dropDown->link('admin_schedule', function (Link $link) {
+                $link->name = 'Schedule';
+                $link->url  = route('admin.schedule.index');
+            });
         });
     }
 
