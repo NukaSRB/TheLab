@@ -52,7 +52,7 @@
             <div class="col-sm-10">
               @if ($entry->tasks->count() > 0)
                 @foreach ($entry->tasks as $task)
-                  <a href="{{ route('admin.task.show', $task->id) }}" class="text-blue">
+                  <a href="{{ route('crud.task.show', $task->id) }}" class="text-blue">
                     {{ $task->label }}
                   </a>
                   <br />

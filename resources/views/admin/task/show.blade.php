@@ -37,7 +37,7 @@
               <strong>Client</strong>
             </div>
             <div class="col-sm-9">
-              <a href="{{ route('admin.client.show', $entry->project->client_id) }}" class="text-blue">
+              <a href="{{ route('crud.client.show', $entry->project->client_id) }}" class="text-blue">
                 {{ $entry->project->client->label }}
               </a>
             </div>
@@ -48,7 +48,7 @@
               <strong>Project</strong>
             </div>
             <div class="col-sm-9">
-              <a href="{{ route('admin.project.show', $entry->project_id) }}" class="text-blue">
+              <a href="{{ route('crud.project.show', $entry->project_id) }}" class="text-blue">
                 {{ $entry->project->label }}
               </a>
             </div>
@@ -61,9 +61,10 @@
             <div class="col-sm-9">
               @foreach ($entry->project->tasks as $projectTask)
                 @if ($projectTask->id !== $entry->id)
-                  <a href="{{ route('admin.task.show', $projectTask->id) }}" class="text-blue">
+                  <a href="{{ route('crud.task.show', $projectTask->id) }}" class="text-blue">
                     {{ $projectTask->label }}
                   </a>
+                  <br />
                 @endif
               @endforeach
             </div>
