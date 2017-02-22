@@ -48,8 +48,8 @@
         <div class="row">
           <div class="col-md-2">&nbsp;</div>
           <div class="col-md-2" v-for="sum in sums">
-            <div class="btn btn-block" :class="{'btn-danger': sum > 8, 'btn-success': sum <= 8}" :style="{opacity: sum < 8 ? '.5' : '1'}">
-              {{ sum }}
+            <div class="btn btn-block" :class="{'btn-danger': sum.sum < 0, 'btn-success': sum.sum >= 0}" :style="{opacity: sum.sum > 0 ? '.5' : '1'}">
+              {{ sum.text }}
             </div>
           </div>
         </div>
@@ -168,7 +168,25 @@
             }
           })
 
-          return sum
+          sum = (sum - 8) * -1
+          let text = null
+
+          if (sum === 0 || sum === -0) {
+            text = 'Full'
+          }
+
+          if (sum > 0) {
+            text = sum + ' open'
+          }
+
+          if (sum < 0) {
+            text = (sum * -1) + ' over'
+          }
+
+          return {
+            'sum':  sum,
+            'text': text
+          }
         })
       },
 
@@ -178,6 +196,7 @@
 
       getFirstEntry(schedule) {
         let key = Object.keys(schedule)[0]
+
 
         return schedule[key]
       },

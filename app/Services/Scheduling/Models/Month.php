@@ -46,6 +46,10 @@ class Month
             $carbonDate = Carbon::parse($date);
         }
 
+        if ($carbonDate->isWeekend()) {
+            $carbonDate = Carbon::parse('next Monday');
+        }
+
         $this->user = $user;
 
         $this->date = $carbonDate;

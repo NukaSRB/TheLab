@@ -25,7 +25,7 @@
             <div class="col-sm-9">
               @if ($entry->projects->count() > 0)
                 @foreach ($entry->projects as $project)
-                  <a href="{{ route('admin.project.show', $project->id) }}" class="text-blue">
+                  <a href="{{ route('crud.project.show', $project->id) }}" class="text-blue">
                     {{ $project->label }}
                   </a>
                   <br />

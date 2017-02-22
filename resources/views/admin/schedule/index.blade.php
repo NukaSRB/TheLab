@@ -28,6 +28,9 @@
             <a data-toggle="collapse" href="#collapse{{ $user->id }}" aria-expanded="false" aria-controls="collapse{{ $user->id }}">
               {{ $user->first_name }} {{ $user->last_name }}
             </a>
+            <div class="pull-right">
+              <i class="fa fa-fw fa-caret-down"></i>
+            </div>
           </td>
           @foreach ($availableDays->weeks as $week)
             <td class="is-week">
