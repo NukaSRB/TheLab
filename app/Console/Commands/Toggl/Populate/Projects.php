@@ -63,18 +63,23 @@ class Projects extends Command
         collect($this->client->handle('GetProjects', ['id' => (int)env('TOGGL_WORKSPACE_ID')]))->each(function ($project) {
             $client = $this->clients->where('toggl_id', $project['cid'])->first();
 
-            $this->projects->firstOrCreate([
-                'toggl_id'        => $project['id'],
-                'client_id'       => $client->id,
-                'label'           => $project['name'],
-                'color'           => substr($project['hex_color'], 1),
-                'rate'            => isset($project['rate']) ? $project['rate'] : null,
-                'estimated_hours' => isset($project['estimated_hours']) ? $project['estimated_hours'] : null,
-                'billable_flag'   => $project['billable'],
-                'active_flag'     => $project['active'],
-                'private_flag'    => $project['is_private'],
-                'created_at'      => Carbon::parse($project['created_at'])->format('Y-m-d H:i:s'),
-            ]);
+            $this->projects->firstOrCreate(
+                [
+                    'toggl_id' => $project['id'],
+                ],
+                [
+                    'toggl_id'        => $project['id'],
+                    'client_id'       => $client->id,
+                    'label'           => $project['name'],
+                    'color'           => substr($project['hex_color'], 1),
+                    'rate'            => isset($project['rate']) ? $project['rate'] : null,
+                    'estimated_hours' => isset($project['estimated_hours']) ? $project['estimated_hours'] : null,
+                    'billable_flag'   => $project['billable'],
+                    'active_flag'     => $project['active'],
+                    'private_flag'    => $project['is_private'],
+                    'created_at'      => Carbon::parse($project['created_at'])->format('Y-m-d H:i:s'),
+                ]
+            );
         });
     }
 }

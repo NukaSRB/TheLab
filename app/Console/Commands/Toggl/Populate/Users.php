@@ -88,16 +88,22 @@ class Users extends Command
                 ]);
             }
 
-            $this->socials->firstOrCreate([
-                'user_id'       => $user->id,
-                'provider'      => 'toggl',
-                'social_id'     => $togglUser['id'],
-                'email'         => $email,
-                'avatar'        => $togglUser['image_url'],
-                'token'         => '',
-                'refresh_token' => null,
-                'expires_in'    => null,
-            ]);
+            $this->socials->firstOrCreate(
+                [
+                    'user_id'  => $user->id,
+                    'provider' => 'toggl',
+                ],
+                [
+                    'user_id'       => $user->id,
+                    'provider'      => 'toggl',
+                    'social_id'     => $togglUser['id'],
+                    'email'         => $email,
+                    'avatar'        => $togglUser['image_url'],
+                    'token'         => '',
+                    'refresh_token' => null,
+                    'expires_in'    => null,
+                ]
+            );
 
             if (! in_array($email, ['elena@siterocket.com', 'cole@siterocket.com', 'matt@siterocket.com', 'richard@siterocket.com'])) {
                 if (! $user->hasRole('employee')) {

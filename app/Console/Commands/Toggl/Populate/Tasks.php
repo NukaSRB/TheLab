@@ -66,13 +66,18 @@ class Tasks extends Command
                 return true;
             }
 
-            $this->tasks->firstOrCreate([
-                'toggl_id'          => $task['id'],
-                'project_id'        => $project->id,
-                'label'             => $task['name'],
-                'estimated_seconds' => isset($task['estimated_seconds']) ? $task['estimated_seconds'] : null,
-                'active_flag'       => $task['active'],
-            ]);
+            $this->tasks->firstOrCreate(
+                [
+                    'toggl_id' => $task['id'],
+                ],
+                [
+                    'toggl_id'          => $task['id'],
+                    'project_id'        => $project->id,
+                    'label'             => $task['name'],
+                    'estimated_seconds' => isset($task['estimated_seconds']) ? $task['estimated_seconds'] : null,
+                    'active_flag'       => $task['active'],
+                ]
+            );
         });
     }
 }
